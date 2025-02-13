@@ -1,0 +1,1 @@
+from wtforms_sqlalchemy.orm import model_form
