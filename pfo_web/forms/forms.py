@@ -1,7 +1,7 @@
 from wtforms_sqlalchemy.orm import model_form
 from flask_wtf import FlaskForm
 from wtforms import Field, widgets
-import models
+from models import models
 class TagListField(Field):
     widget = widgets.TextInput()
     def __init__(self, label="", validators=None, remove_duplicates=True, **kwargs):
