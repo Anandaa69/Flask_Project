@@ -39,4 +39,4 @@ class NoteForm(BaseNoteForm):
     tags = TagListField("Tag")
 
 class TagForm(BaseTagsForm):
-    tag = TagListField
+    tag = TagListField("Tag")

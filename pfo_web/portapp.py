@@ -10,10 +10,7 @@ models.init_app(app)
 def index():
     db = models.db
     notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
-    return flask.render_template(
-        "index.html",
-        notes=notes,
-    )
+    return flask.render_template("index.html", notes=notes,)
 
 if __name__ == "__main__":
     app.run(debug=True)
