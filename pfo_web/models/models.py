@@ -96,4 +96,3 @@ class User(db.Model, UserMixin):
         return bcrypt.check_password_hash(self._password_hash_password.encode("utf-8"))
     
     serialize_rules = ("_password_hash")
-    

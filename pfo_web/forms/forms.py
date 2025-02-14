@@ -1,7 +1,32 @@
 from wtforms_sqlalchemy.orm import model_form
 from flask_wtf import FlaskForm
-from wtforms import Field, widgets
+from wtforms import Field, widgets, validators, fields
 from models import models
+
+BaseUserForm = model_form(
+    models.User,
+    base_class=FlaskForm,
+    exclude=["created_date", "update_date", "status", "_password_hash"],
+    db_session=models.db.session,
+)
+
+class RegisterForm(BaseUserForm):
+    username = fields.StringField(
+        "username",
+        [validators.DataRequired(), validators.length(min=6)]
+    )
+    password = fields.PasswordField(
+        "password", 
+        [validators.DataRequired(), validators.length(min=6)]
+    )
+    name = fields.StringField(
+        "name", [validators.DataRequired(), validators.length(min=6)]
+    )
+
+class LoginForm(FlaskForm):
+    username = fields.StringField("username", [validators.DataRequired()])
+    password = fields.PasswordField("password", [validators.DataRequired()])
+
 class TagListField(Field):
     widget = widgets.TextInput()
     def __init__(self, label="", validators=None, remove_duplicates=True, **kwargs):
@@ -31,6 +56,7 @@ BaseNoteForm = model_form(
     models.Note, base_class=FlaskForm, exclude=["created_date", "updated_date"],
 db_session=models.db.session
 )
+
 BaseTagsForm = model_form(
     models.Tag ,base_class=FlaskForm, exclude=["created_date", "updated_date"],
 db_session=models.db.session
@@ -40,3 +66,4 @@ class NoteForm(BaseNoteForm):
 
 class TagForm(BaseTagsForm):
     tag = TagListField("Tag")
+
