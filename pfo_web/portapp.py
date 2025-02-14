@@ -37,6 +37,12 @@ def login():
         return flask.redirect(flask.url_for("index"))
     
     return flask.redirect(flask.url_for("login", error="Invalud username or password"))
+    
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return flask.redirect(flask.url_for("login"))
 
 @app.route("/register", methods=["GET","POST"])
 def register():
@@ -46,14 +52,20 @@ def register():
             "register.html",
             form=form,
         )
+    user = models.User()
+    form.populate_obj(user)
 
-    
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return flask.redirect(flask.url_for("login"))
+    role = models.Role.query.filter_by(name="user").first()
+    if not role:
+        role = models.Role(name="user")
+        models.db.session.add(role)
 
+    user.roles.append(role)
+    user.password_hash = form.password.data
+    models.db.session.add(user)
+    models.db.session.commit()
+
+    return flask.redirect(flask.url_for("index"))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -60,7 +60,7 @@ class Note(db.Model):
 user_roles = db.Table(
     "user_roles",
     db.Model.metadata,
-    sa.Column("user_id", sa.ForeignKey("user.id"), primary_key=True),
+    sa.Column("user_id", sa.ForeignKey("users.id"), primary_key=True),
     sa.Column("role_id", sa.ForeignKey("roles.id"), primary_key=True)
 )
 
@@ -74,12 +74,12 @@ class Role(db.Model):
 class User(db.Model, UserMixin):
     __tablename__ = "users"
 
-    id = id.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     username = db.Column(db.String)
     status = db.Column(db.String, default="active")
     _password_hash = db.Column(db.String)
-    created_date = mapped_column(sa.Datetime(timezone=True), server_default=func.now())
+    created_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
     updated_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
     roles: Mapped[list[Role]] = relationship(secondary=user_roles)
 
@@ -93,6 +93,6 @@ class User(db.Model, UserMixin):
         self._password_hash = password_hash.decode("utf-8")
 
     def authenticate(self, password):
-        return bcrypt.check_password_hash(self._password_hash_password.encode("utf-8"))
+        return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
     
     serialize_rules = ("_password_hash")

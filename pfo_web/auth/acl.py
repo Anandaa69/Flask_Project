@@ -6,7 +6,7 @@ from functools import wraps
 
 login_manager = LoginManager()
 
-def int_acl(app):
+def init_acl(app):
     login_manager.init_app(app)
 
 @login_manager.user_loader
