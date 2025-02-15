@@ -3,7 +3,7 @@ from models import models
 from forms import forms
 from auth import acl
 
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 
 
 
@@ -22,8 +22,12 @@ def index():
 
 @app.route("/login", methods=["GET","POST"])
 def login():
+    
+    # ถ้าผู้ใช้ล็อกอินแล้ว, เปลี่ยนเส้นทางไปหน้า index
+    if current_user.is_authenticated:
+        return flask.redirect(flask.url_for('index'))
+    
     form = forms.LoginForm()
-
     if not form.validate_on_submit():
         return flask.render_template(
             "login.html",
