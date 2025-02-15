@@ -70,6 +70,8 @@ def register():
 
     return flask.redirect(flask.url_for("index"))
 
+#TAGS AND NOTES
+
 @app.route("/tags/<tag_name>")
 def tags_view(tag_name):
     db = models.db
@@ -82,12 +84,53 @@ def tags_view(tag_name):
     notes = db.session.execute(
         db.select(models.Note).where(models.Note.tags.any(id=tag.id))
     ).scalar()
-    
+
     return flask.render_template(
         "tags_view.html",
         tag_name=tag_name,
         notes=notes,
     )
+
+@app.route("/tags/<tag_id>/update_tags", methods=["GET", "POST"])
+def update_tags(tag_id): #แก้ไข Tags ได้
+    db = models.db
+    tag = (
+        db.session.execute(db.select(models.Tag).where(models.Tag.id == tag_id))
+        .scalar()
+        .first()
+    )
+
+    form = forms.TagsForm()
+    form_name = tag.name
+
+    if not form.validate_on_submit():
+        print(form.errors)
+        return flask.render_template(
+            "update_tags.html",
+            form=form,
+            form_name=form_name
+            )
+
+    note = models.Note(id=tag_id)
+    form.populate_obj(note)
+    tag.name = form.name.data
+    db.session.commit()
+
+    return flask.redirect(flask.url_for("index"))
+
+@app.route("/tags/<tag_id>/delete_tegs", methods=["GET", "POST"])
+def delete_tags(tag_id):
+    db = models.db
+    tag = (
+        db.session.execute(db.select(models.Tag).where(models.Tag.id == tag_id))
+        .scalar()
+        .first()
+    )
+
+    tag.name = ""
+    db.session.commit()
+
+    return flask.redirect(flask.url_for("index"))
 
 if __name__ == "__main__":
     app.run(debug=True)
