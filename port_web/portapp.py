@@ -82,6 +82,7 @@ def tags_view(tag_name):
     notes = db.session.execute(
         db.select(models.Note).where(models.Note.tags.any(id=tag.id))
     ).scalar()
+    
     return flask.render_template(
         "tags_view.html",
         tag_name=tag_name,
