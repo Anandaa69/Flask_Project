@@ -83,7 +83,7 @@ def tags_view(tag_name):
 
     notes = db.session.execute(
         db.select(models.Note).where(models.Note.tags.any(id=tag.id))
-    ).scalar()
+    ).scalars()
 
     return flask.render_template(
         "tags_view.html",
@@ -96,7 +96,7 @@ def update_tags(tag_id): #แก้ไข Tags ได้
     db = models.db
     tag = (
         db.session.execute(db.select(models.Tag).where(models.Tag.id == tag_id))
-        .scalar()
+        .scalars()
         .first()
     )
 
@@ -123,7 +123,7 @@ def delete_tags(tag_id):
     db = models.db
     tag = (
         db.session.execute(db.select(models.Tag).where(models.Tag.id == tag_id))
-        .scalar()
+        .scalars()
         .first()
     )
 
@@ -150,7 +150,7 @@ def create_note():
     for tag_name in form.tags.data:
         tag =(
             db.session.execute(db.select(models.Tag).where(models.Tag.name == tag_name))
-            .scalar()
+            .scalars()
             .first()
         )
 
