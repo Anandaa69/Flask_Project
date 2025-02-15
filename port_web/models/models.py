@@ -96,3 +96,6 @@ class User(db.Model, UserMixin):
         return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
     
     serialize_rules = ("_password_hash")
+
+    def has_role(self, role_name):
+        return any(role.name == role_name for role in self.roles)
