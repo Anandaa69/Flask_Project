@@ -6,7 +6,6 @@ from auth import acl
 from flask_login import login_required, login_user, logout_user, current_user
 
 
-
 app = flask.Flask(__name__)
 
 app.config["SECRET_KEY"] = "This is secret key"
@@ -70,6 +69,24 @@ def register():
     models.db.session.commit()
 
     return flask.redirect(flask.url_for("index"))
+
+@app.route("/tags/<tag_name>")
+def tags_view(tag_name):
+    db = models.db
+    tag = (
+        db.session.execute(db.select(models.Tag).where(models.Tag.name == tag_name))
+        .scalars()
+        .first()
+    )
+
+    notes = db.session.execute(
+        db.select(models.Note).where(models.Note.tags.any(id=tag.id))
+    ).scalar()
+    return flask.render_template(
+        "tags_view.html",
+        tag_name=tag_name,
+        notes=notes,
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
