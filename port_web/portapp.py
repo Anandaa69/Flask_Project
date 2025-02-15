@@ -182,7 +182,7 @@ def update_note(tag_id):
         print(form.errors)
         return flask.render_template(
             "update_note.html",
-            form=form
+            form=form,
             form_title=form_title,
             form_description=form_description
         )
@@ -191,6 +191,22 @@ def update_note(tag_id):
     form.populate_obj(note)
     notes.description = form.description.data
     notes.title = form.title.data
+    db.session.commit()
+
+    return flask.redirect(flask.url_for("index"))
+
+@app.route("/tags/<tag_id>/delete_note", methods=["GET", "POST"])
+def delete_note(tag_id):
+    db = models.db
+    notes = (
+        db.session.execute(
+            db.session(models.Note).where(models.Note.tags.any(id=tag_id))
+        )
+        .scalars()
+        .first()
+    )
+
+    notes.description = ""
     db.session.commit()
 
     return flask.redirect(flask.url_for("index"))
