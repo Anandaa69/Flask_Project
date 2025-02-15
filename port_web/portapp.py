@@ -118,7 +118,7 @@ def update_tags(tag_id): #แก้ไข Tags ได้
 
     return flask.redirect(flask.url_for("index"))
 
-@app.route("/tags/<tag_id>/delete_tegs", methods=["GET", "POST"])
+@app.route("/tags/<tag_id>/delete_tags", methods=["GET", "POST"])
 def delete_tags(tag_id):
     db = models.db
     tag = (
@@ -128,6 +128,69 @@ def delete_tags(tag_id):
     )
 
     tag.name = ""
+    db.session.commit()
+
+    return flask.redirect(flask.url_for("index"))
+
+@app.route("/notes/create_note", methods=["GET", "POST"])
+def create_note():
+    form = forms.NoteForm()
+    if not form.validate_on_submit():
+        print("error", form.errors)
+        return flask.render_template(
+            "create_note.html",
+            form=form
+        )
+    
+    note = models.Note()
+    form.populate_obj(note)
+    note.tags = []
+
+    db = models.db
+    for tag_name in form.tags.data:
+        tag =(
+            db.session.execute(db.select(models.Tag).where(models.Tag.name == tag_name))
+            .scalar()
+            .first()
+        )
+
+        if not tag:
+            tag = models.Tag(name=tag_name)
+            db.session.add(tag)
+
+        note.tags.append(tag)
+
+    db.session.add(note)
+    db.session.commit()
+
+    return flask.redirect(flask.url_for("index"))
+
+@app.route("/tags/<tag_id>/update_note", methods=["GET", "POST"])
+def update_note(tag_id):
+    db = models.db
+    notes = (
+        db.session.execute(
+            db.session(models.Note).where(models.Note.tags.any(id=tag_id)))
+            .scalars()
+            .first()
+    )
+
+    form = forms.NoteForm()
+    form_title = notes.title
+    form_description = notes.description
+    if not form.validate_on_submit():
+        print(form.errors)
+        return flask.render_template(
+            "update_note.html",
+            form=form
+            form_title=form_title,
+            form_description=form_description
+        )
+    
+    note = models.Note(id=tag_id)
+    form.populate_obj(note)
+    notes.description = form.description.data
+    notes.title = form.title.data
     db.session.commit()
 
     return flask.redirect(flask.url_for("index"))
