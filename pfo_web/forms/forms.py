@@ -29,11 +29,12 @@ class LoginForm(FlaskForm):
 
 class TagListField(Field):
     widget = widgets.TextInput()
+
     def __init__(self, label="", validators=None, remove_duplicates=True, **kwargs):
         super().__init__(label, validators, **kwargs)
         self.remove_duplicates = remove_duplicates
         self.data = []
-    
+
     def process_formdata(self, valuelist):
         data = []
         if valuelist:
@@ -45,25 +46,28 @@ class TagListField(Field):
         for d in data:
             if d not in self.data:
                 self.data.append(d)
-    
+
     def _value(self):
         if self.data:
-            return ",".join(self.data)
+            return ", ".join(self.data)
         else:
             return ""
 
 BaseNoteForm = model_form(
-    models.Note, base_class=FlaskForm, exclude=["created_date", "updated_date"],
-db_session=models.db.session
+    models.Note, 
+    base_class=FlaskForm, 
+    exclude=["created_date", "updated_date"],
+    db_session=models.db.session
 )
 
 BaseTagsForm = model_form(
-    models.Tag ,base_class=FlaskForm, exclude=["created_date", "updated_date"],
-db_session=models.db.session
+    models.Tag,
+    base_class=FlaskForm, 
+    exclude=["created_date", "updated_date"],
+    db_session=models.db.session
 )
 class NoteForm(BaseNoteForm):
     tags = TagListField("Tag")
 
 class TagForm(BaseTagsForm):
     tag = TagListField("Tag")
-
