@@ -30,9 +30,10 @@ def init_app(app):
 
 # Database
 note_tag_m2m = db.Table(
-    "note_tag",
+    "note_tag_port",
     sa.Column("note_id", sa.ForeignKey("notes.id"), primary_key=True),
     sa.Column("tag_id", sa.ForeignKey("tags.id"), primary_key=True),
+    sa.Column("portfolio_id", sa.Integer)
 )
 
 class Tag(db.Model):
