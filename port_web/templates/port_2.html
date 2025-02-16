@@ -1,3 +1,12 @@
 {% extends 'base.html' %}
 {% block body %}
+
+<ul class="nav justify-content-center" style="padding-top: 1em;">
+    <li class="nav-item">
+        <a class="btn btn-primary" href="{{ url_for('create_note', port_id = 2) }}">
+            Create
+        </a>
+    </li>
+</ul>
+
 {% endblock %}

@@ -152,12 +152,14 @@ def delete_tags(tag_id):
 
 @app.route("/notes/create_note", methods=["GET", "POST"])
 def create_note():
+    port_id = flask.request.args.get('port_id')
     form = forms.NoteForm()
     if not form.validate_on_submit():
         print("error", form.errors)
         return flask.render_template(
             "create_note.html",
-            form=form
+            form=form,
+            port_id = port_id
         )
     
     note = models.Note()
