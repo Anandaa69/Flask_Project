@@ -170,7 +170,7 @@ def update_note(tag_id):
     db = models.db
     notes = (
         db.session.execute(
-            db.session(models.Note).where(models.Note.tags.any(id=tag_id)))
+            db.select(models.Note).where(models.Note.tags.any(id=tag_id)))
             .scalars()
             .first()
     )
@@ -219,7 +219,7 @@ def delete(tag_id):
         db.session.execute(
             db.select(models.Note).where(models.Note.tags.any(id=tag_id))
         )
-        .scalar()
+        .scalars()
         .first()
     )
 
