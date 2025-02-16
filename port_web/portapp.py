@@ -100,7 +100,7 @@ def update_tags(tag_id): #แก้ไข Tags ได้
         .first()
     )
 
-    form = forms.TagsForm()
+    form = forms.TagForm()
     form_name = tag.name
 
     if not form.validate_on_submit():
@@ -200,7 +200,7 @@ def delete_note(tag_id):
     db = models.db
     notes = (
         db.session.execute(
-            db.session(models.Note).where(models.Note.tags.any(id=tag_id))
+            db.select(models.Note).where(models.Note.tags.any(id=tag_id))
         )
         .scalars()
         .first()
