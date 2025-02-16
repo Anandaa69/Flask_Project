@@ -13,11 +13,29 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
 models.init_app(app)
 
-@app.route("/")
+@app.route("/index")
 def index():
     db = models.db
     notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
     return flask.render_template("index.html", notes=notes,)
+
+# @app.route("/")
+# def index():
+#     db = models.db
+#     notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
+#     return flask.render_template("index.html", notes=notes,)
+
+@app.route("/")
+def main():
+    return flask.render_template("main.html")
+
+@app.route("/port_1")
+def port_1():
+    return flask.render_template("port_1.html")
+
+@app.route("/port_2")
+def port_2():
+    return flask.render_template("port_2.html")
 
 @app.route("/login", methods=["GET","POST"])
 def login():
