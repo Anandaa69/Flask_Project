@@ -1,24 +1,23 @@
 {% extends 'base.html'%}
 {% block body %}
 
-{% if not current_user.is_authenticated %}
-<h2>Login to comments</h2>
 <ul class="nav justify-content-center" style="padding-top: 1em;">
     <li class="nav-item">
-        <a class="btn btn-primary" href="{{ url_for('login', port_id = 1)}}">
-            Login
-        </a>
-    </li>
-</ul>
-{% else %}
-    <ul class="nav justify-content-center" style="padding-top: 1em;">
-        <li class="nav-item">
+        {% if not current_user.is_authenticated %}
+            <h2>Login to comments</h2>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary " href="{{ url_for('login', port_id = 1)}}">
+                    Login
+                </a>
+            </div>
+        {% else %}
             <a class="btn btn-primary" href="{{ url_for('create_note', port_id = 1) }}">
                 Create
             </a>
-        </li>
-    </ul>
-{% endif %}
+        {% endif %}
+    </li>
+</ul>
+
 {% for note in notes %}
 {% if note.portfolio_id == 1 %}
     <h1>port = {{ note.portfolio_id }}</h1>
