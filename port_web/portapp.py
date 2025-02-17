@@ -37,7 +37,9 @@ def port_1():
 
 @app.route("/port_2")
 def port_2():
-    return flask.render_template("port_2.html")
+    db = models.db
+    notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
+    return flask.render_template("port_2.html", notes=notes)
 
 @app.route("/login", methods=["GET","POST"])
 def login():
