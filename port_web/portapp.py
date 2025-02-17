@@ -31,7 +31,9 @@ def main():
 
 @app.route("/port_1")
 def port_1():
-    return flask.render_template("port_1.html")
+    db = models.db
+    notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
+    return flask.render_template("port_1.html", notes=notes)
 
 @app.route("/port_2")
 def port_2():
@@ -152,23 +154,27 @@ def delete_tags(tag_id):
 
 @app.route("/notes/create_note", methods=["GET", "POST"])
 def create_note():
-    port_id = flask.request.args.get('port_id')
+    port_id = flask.request.args.get('port_id')  # ดึงค่า port_id จาก query string
     form = forms.NoteForm()
+
     if not form.validate_on_submit():
         print("error", form.errors)
         return flask.render_template(
             "create_note.html",
             form=form,
-            port_id = port_id
+            port_id=port_id
         )
-    
+
     note = models.Note()
     form.populate_obj(note)
     note.tags = []
 
+    # ตั้งค่า portfolio_id ให้เป็น port_id ที่ส่งเข้ามา
+    note.portfolio_id = port_id
+
     db = models.db
     for tag_name in form.tags.data:
-        tag =(
+        tag = (
             db.session.execute(db.select(models.Tag).where(models.Tag.name == tag_name))
             .scalars()
             .first()
@@ -183,7 +189,7 @@ def create_note():
     db.session.add(note)
     db.session.commit()
 
-    return flask.redirect(flask.url_for("index"))
+    return flask.redirect(flask.url_for(f"port_{port_id}"))
 
 @app.route("/tags/<tag_id>/update_note", methods=["GET", "POST"])
 def update_note(tag_id):

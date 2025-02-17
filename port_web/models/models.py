@@ -13,6 +13,7 @@ import sqlalchemy as sa
 
 bcrypt = Bcrypt()
 
+
 class Base(DeclarativeBase):
     pass
 
@@ -28,13 +29,15 @@ def init_app(app):
         db.create_all()
         db.reflect()
 
+
 # Database
 note_tag_m2m = db.Table(
     "note_tag_port",
     sa.Column("note_id", sa.ForeignKey("notes.id"), primary_key=True),
     sa.Column("tag_id", sa.ForeignKey("tags.id"), primary_key=True),
-    sa.Column("portfolio_id", sa.Integer)
+    sa.Column("portfolio_id", sa.Integer),
 )
+
 
 class Tag(db.Model):
     __tablename__ = "tags"
@@ -42,6 +45,7 @@ class Tag(db.Model):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
     name: Mapped[str] = mapped_column(sa.String, nullable=False)
     created_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
+
 
 class Note(db.Model):
     __tablename__ = "notes"
@@ -56,21 +60,26 @@ class Note(db.Model):
     create_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
     update_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
 
+    # Adding portfolio_id without linking it to any other table
+    portfolio_id: Mapped[int] = mapped_column(sa.Integer, nullable=True)
+
 
 # acl database m2m
 user_roles = db.Table(
     "user_roles",
     db.Model.metadata,
     sa.Column("user_id", sa.ForeignKey("users.id"), primary_key=True),
-    sa.Column("role_id", sa.ForeignKey("roles.id"), primary_key=True)
+    sa.Column("role_id", sa.ForeignKey("roles.id"), primary_key=True),
 )
+
 
 class Role(db.Model):
     __tablename__ = "roles"
-    
+
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
     name: Mapped[str] = mapped_column(sa.String, nullable=False, default="user")
     created_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
+
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"
@@ -90,13 +99,13 @@ class User(db.Model, UserMixin):
 
     @password_hash.setter
     def password_hash(self, password):
-        password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+        password_hash = bcrypt.generate_password_hash(password.encode("utf-8"))
         self._password_hash = password_hash.decode("utf-8")
 
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
-    
-    serialize_rules = ("_password_hash")
+
+    serialize_rules = "_password_hash"
 
     def has_role(self, role_name):
         return any(role.name == role_name for role in self.roles)
