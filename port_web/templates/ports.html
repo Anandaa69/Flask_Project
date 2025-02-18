@@ -30,19 +30,39 @@
         color: white;
     }
 
-    .second-section {
-        height: 920px;
-        overflow: hidden;
-        background-color: blue;
-        color: white;
-    }
-
+    
     .third-section {
         height: 900px;
         overflow: hidden;
         background-color: red;
         color: white;
     }
+
+    .second-section {
+        display: flex;
+        height: 700px;
+    }
+    
+    .image-zone {
+        flex: 7;
+        background: 
+            linear-gradient(to right, rgba(0, 0, 0, 0), black), /* Gradient ไล่จากโปร่งใสไปดำ */
+            url('/static/images/bg.png'); /* ภาพพื้นหลัง */
+        background-size: cover;
+        background-position: center;
+    }
+    
+    .text-zone {
+        flex: 3;
+        background-color: black; /* สีพื้นหลังของโซนข้อความ */
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+    }
+    
+    
 </style>
 
 <div class="first-section">
@@ -57,8 +77,14 @@
 </div>
 
 <div class="second-section">
-    TEST
+    <div class="image-zone"></div>
+    <div class="text-zone">
+        <h2>Welcome</h2>
+        <p>This is a smooth transition between image and text.</p>
+    </div>
 </div>
+
+
 
 <div class="third-section">
     TEST
