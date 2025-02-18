@@ -43,7 +43,7 @@ def port_2():
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-    
+
     # ถ้าผู้ใช้ล็อกอินแล้ว, เปลี่ยนเส้นทางไปหน้า index
     if current_user.is_authenticated:
         return flask.redirect(flask.url_for('index'))
