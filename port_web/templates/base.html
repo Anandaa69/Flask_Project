@@ -15,7 +15,9 @@
 </head>
 
 
-<body class="d-flex flex-column" style="min-height: 100vh;">
+<body class="d-flex flex-column" style="min-height: 100vh; 
+                                background-image: url('/static/images/bg.png');
+                                background-size: cover; background-position: center; background-attachment: fixed;">
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('main')}}">Home</a>
@@ -59,31 +61,32 @@
         </div>
         </div>
     </nav>
-    <div class="container flex-grow-1">
+    <div class="flex-grow-1">
         {% block body %}
         Default template
         {% endblock %}
     </div>
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top mt-auto">
-        <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-                <svg class="bi" width="30" height="24">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
-            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
-        </div>
+    <div data-bs-theme="dark">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top mt-auto" style="background-color: #2b3340" >
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                    <svg class="bi" width="30" height="24">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+            </div>
 
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex " style="padding-right: 10px;">
-            <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-twitter" width="24"
-                        height="24"></i></a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-instagram" width="24"
-                        height="24"></i></a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-facebook" width="24"
-                        height="24"></i></a></li>
-        </ul>
-    </footer>
-
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex " style="padding-right: 10px;">
+                <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-twitter" width="24"
+                            height="24"></i></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-instagram" width="24"
+                            height="24"></i></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-facebook" width="24"
+                            height="24"></i></a></li>
+            </ul>
+        </footer>
+    </div>
 </body>
 
 </html>

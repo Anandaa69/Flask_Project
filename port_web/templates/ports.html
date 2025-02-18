@@ -24,10 +24,27 @@
     }
 
     .first-section {
-    height: 720px; /* Set a fixed height for the first section */
-    overflow: hidden; /* Ensures content that overflows does not appear */
+        height: 920px; /* Set a fixed height for the first section */
+        overflow: hidden; /* Ensures content that overflows does not appear */
+        background-color: black;
+        color: white;
+    }
+
+    .second-section {
+        height: 920px;
+        overflow: hidden;
+        background-color: blue;
+        color: white;
+    }
+
+    .third-section {
+        height: 900px;
+        overflow: hidden;
+        background-color: red;
+        color: white;
     }
 </style>
+
 <div class="first-section">
     <div class="custom-position">
         {% if current_user.is_authenticated %}
@@ -38,8 +55,12 @@
         <span class="portfolio-text">Welcome to my Portfolio</span>
     </div>
 </div>
-<div>
+
+<div class="second-section">
     TEST
 </div>
 
+<div class="third-section">
+    TEST
+</div>
 {% endblock %}
