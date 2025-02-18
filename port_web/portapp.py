@@ -19,6 +19,10 @@ def index():
     notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
     return flask.render_template("index.html", notes=notes,)
 
+@app.route("/about_me")
+def about_me():
+    return flask.render_template("about_me.html")
+
 @app.route("/")
 def main():
     return flask.render_template("main.html")
