@@ -19,12 +19,6 @@ def index():
     notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
     return flask.render_template("index.html", notes=notes,)
 
-# @app.route("/")
-# def index():
-#     db = models.db
-#     notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
-#     return flask.render_template("index.html", notes=notes,)
-
 @app.route("/")
 def main():
     return flask.render_template("main.html")
@@ -59,7 +53,7 @@ def login():
 
     if user and user.authenticate(form.password.data):
         login_user(user)
-        return flask.redirect(flask.url_for("index"))
+        return flask.redirect(flask.url_for("main"))
     
     return flask.redirect(flask.url_for("login", error="Invalud username or password"))
     
@@ -67,7 +61,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return flask.redirect(flask.url_for("login"))
+    return flask.redirect(flask.url_for("main"))
 
 @app.route("/register", methods=["GET","POST"])
 def register():
@@ -90,7 +84,7 @@ def register():
     models.db.session.add(user)
     models.db.session.commit()
 
-    return flask.redirect(flask.url_for("index"))
+    return flask.redirect(flask.url_for("login"))
 
 #TAGS AND NOTES
 
