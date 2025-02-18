@@ -10,12 +10,15 @@
         flex-direction: column;
         align-items: flex-end;
     }
+
     .portfolio-text {
         font-size: 2rem;
     }
+
     .btn-container {
         position: absolute;
-        bottom: 40%; /* ปรับให้ปุ่มอยู่ด้านล่าง */
+        bottom: 40%;
+        /* ปรับให้ปุ่มอยู่ด้านล่าง */
         left: 50%;
         transform: translateX(-50%);
     }
@@ -28,6 +31,8 @@
 
 <!-- ปุ่ม Let's Start -->
 <div class="btn-container">
-    <button class="btn btn-primary btn-lg">Let's Start</button>
+    <a class="btn btn-primary btn-lg" href=" {{ url_for('ports') }}" style="color: white;">
+        Let's Start
+    </a>
 </div>
 {% endblock %}

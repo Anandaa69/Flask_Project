@@ -8,7 +8,7 @@
         transform: translate(-50%, -20%);
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
+        align-items: flex-center;
     }
 
     .portfolio-text {
@@ -22,15 +22,24 @@
         left: 50%;
         transform: translateX(-50%);
     }
-</style>
 
-<div class="custom-position">
-    {% if current_user.is_authenticated %}  
+    .first-section {
+    height: 720px; /* Set a fixed height for the first section */
+    overflow: hidden; /* Ensures content that overflows does not appear */
+    }
+</style>
+<div class="first-section">
+    <div class="custom-position">
+        {% if current_user.is_authenticated %}
         <h1 class="display-1">Hi, {{ current_user.username }}</h1>
-    {% else %}
+        {% else %}
         <h1 class="display-1">Hi, Visitor</h1>
-    {% endif %}
-    <span class="portfolio-text">Welcome to my Portfolio</span>
+        {% endif %}
+        <span class="portfolio-text">Welcome to my Portfolio</span>
+    </div>
+</div>
+<div>
+    TEST
 </div>
 
 {% endblock %}
