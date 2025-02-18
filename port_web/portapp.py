@@ -23,6 +23,10 @@ def index():
 def main():
     return flask.render_template("main.html")
 
+@app.route("/ports")
+def ports():
+    return flask.render_template("ports.html")
+
 @app.route("/port_1")
 def port_1():
     db = models.db

@@ -18,7 +18,7 @@
 <body class="d-flex flex-column" style="min-height: 100vh;">
     <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('index')}}">Home</a>
+            <a class="navbar-brand" href="{{ url_for('main')}}">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
                         <a class="nav-link" href="#">About me</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Portfolio</a>
+                        <a class="nav-link" href="{{ url_for('ports') }}">Portfolio</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -48,7 +48,7 @@
                         {% if current_user.is_authenticated %}
                         <div class="d-flex flex-column align-items-start w-100" ">
                             <span>{{ current_user.username }}</span>
-                            <a class="nav-link mt-auto align-self-center" href="{{ url_for('logout') }}">logout</a>
+                            <a class=" nav-link mt-auto align-self-center" href="{{ url_for('logout') }}">logout</a>
                         </div>
                 </div>
                 {% else %}

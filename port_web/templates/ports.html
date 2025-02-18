@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    .custom-position {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -20%);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .portfolio-text {
+        font-size: 2rem;
+    }
+
+    .btn-container {
+        position: absolute;
+        bottom: 40%;
+        /* ปรับให้ปุ่มอยู่ด้านล่าง */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+</style>
+
+<div class="custom-position">
+    {% if current_user.is_authenticated %}  
+        <h1 class="display-1">Hi, {{ current_user.username }}</h1>
+    {% else %}
+        <h1 class="display-1">Hi, Visitor</h1>
+    {% endif %}
+    <span class="portfolio-text">Welcome to my Portfolio</span>
+</div>
+
+{% endblock %}
