@@ -1,3 +1,25 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block body %}
+<style>
+    .custom-position {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -20%);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+</style>
+<div class="custom-postion">
+    <div class="card" style="width: 18rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <img src="/static/images/Shiba.png" class="card-img-top" alt="Your Photo">
+        <div class="card-body">
+            <h5 class="card-title">Your Name</h5>
+            <p class="card-text">This is a brief description about yourself.</p>
+            <a href="#" class="btn btn-primary">Contact Me</a>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
