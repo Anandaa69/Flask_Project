@@ -1,7 +1,33 @@
 {% extends 'base.html' %}
 {% block body %}
-    <h1> TEST </h1>
-    <a class="btn btn-primary my-3" href="{{ url_for('index') }}">Index</a><br>
-    <a class="btn btn-primary my-3" href="{{ url_for('port_1') }}">Port 1</a><br>
-    <a class="btn btn-primary my-3" href="{{ url_for('port_2') }}">Port 2</a>
+<style>
+    .custom-position {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -20%);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .portfolio-text {
+        font-size: 2rem;
+    }
+    .btn-container {
+        position: absolute;
+        bottom: 40%; /* ปรับให้ปุ่มอยู่ด้านล่าง */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+</style>
+
+<div class="custom-position">
+    <h1 class="display-1">Anandaa69</h1>
+    <span class="portfolio-text">Portfolio</span>
+</div>
+
+<!-- ปุ่ม Let's Start -->
+<div class="btn-container">
+    <button class="btn btn-primary btn-lg">Let's Start</button>
+</div>
 {% endblock %}

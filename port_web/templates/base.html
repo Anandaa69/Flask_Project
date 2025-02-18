@@ -12,7 +12,7 @@
         </script>
 </head>
 
-<body>
+<body class="d-flex flex-column" style="min-height: 100vh;">
     <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('index')}}">Home</a>
@@ -44,20 +44,42 @@
                     <span class="navbar-text">
                         {% if current_user.is_authenticated %}
                         {{ current_user.username }}
-                            <a class="nav-link" href="{{ url_for('logout') }}">logout</a>
+                        <a class="nav-link" href="{{ url_for('logout') }}">logout</a>
                         {% else %}
-                            <a class="nav-link" href="{{ url_for('register') }}">sign in</a>
+                        <a class="nav-link" href="{{ url_for('register') }}">sign in</a>
                         {% endif %}
                     </span>
                 </div>
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container flex-grow-1">
         {% block body %}
         Default template
         {% endblock %}
     </div>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top mt-auto">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24">
+                        <use xlink:href="#twitter"></use>
+                    </svg></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24">
+                        <use xlink:href="#instagram"></use>
+                    </svg></a></li>
+            <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24">
+                        <use xlink:href="#facebook"></use>
+                    </svg></a></li>
+        </ul>
+    </footer>
 </body>
 
 </html>
