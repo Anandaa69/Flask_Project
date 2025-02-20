@@ -3,23 +3,32 @@
 
 <style>
     body {
-        background-color: #0a0a0a;
+        background-color: #03200c;
         overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* จัดเรียงส่วนต่างๆ ในแนวตั้ง */
+        margin: 0; /* ลบ margin เริ่มต้นของ body */
+    }
+
+    .container-fluid {
+        flex-grow: 1; /* ทำให้ container-fluid ยืดเต็มพื้นที่ */
     }
 
     .background {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         position: relative;
-        height: 100vh;
         text-align: center;
+        margin-bottom: 60px;
     }
 
     .image-wrapper {
         position: relative;
-        width: 450px; /* กำหนดขนาดพื้นฐานของบล็อคภาพ */
+        width: 800px;
         height: auto;
     }
 
@@ -29,8 +38,8 @@
         overflow: hidden;
         box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
         position: relative;
-        z-index: 1; /* อยู่ด้านหลัง */
-        margin-left: -30px; /* ขยับไปทางซ้าย */
+        z-index: 1;
+        margin-left: -40px;
     }
 
     .image-container img {
@@ -41,13 +50,13 @@
 
     .image-overlay {
         position: absolute;
-        bottom: -30px; /* เลื่อนลงมาทับภาพหลัก */
-        right: -50px; /* ขยับไปทางขวา ให้เกินออกจากขอบ */
-        width: 350px; /* ปรับขนาดให้ใหญ่ขึ้น */
+        bottom: -50px;
+        right: -100px;
+        width: 550px;
         border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
-        z-index: 2; /* ให้อยู่บนสุด */
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.5);
+        z-index: 2;
     }
 
     .image-overlay img {
@@ -57,43 +66,78 @@
     }
 
     .text-content {
-        margin-top: 30px;
+        margin-top: 100px;
         color: white;
     }
 
     .text-content h1 {
-        font-size: 36px;
+        font-size: 64px;
         text-transform: uppercase;
         font-weight: bold;
     }
 
     .text-content p {
-        font-size: 20px;
+        font-size: 32px;
+    }
+
+    .info-section {
+        margin-top: 100px;
+        padding: 30px;
+        background-color: #1b3a2f;
+        border-radius: 15px;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+        width: 80%;
+        max-width: 900px;
+        text-align: center;
+        flex-shrink: 0; /* ป้องกันการหดตัว */
+    }
+
+    .info-section img {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+    }
+
+    .info-section p {
+        color: white;
+        font-size: 24px;
+        margin-top: 30px;
+    }
+
+    footer {
+        width: 100%;
+        background-color: #03200c;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        margin-top: auto; /* ทำให้ footer อยู่ที่ด้านล่างสุด */
     }
 </style>
 
-<body>
-    <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
-        <div class="background">
-
-            <div class="image-wrapper">
-                <div class="image-container">
-                    <img src="static/images/port1-1-1.png" alt="Main Image">
-                </div>
-
-                <div class="image-overlay">
-                    <img src="static/images/port1-1-2.png" alt="Overlay Image">
-                </div>
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="background">
+        <div class="image-wrapper">
+            <div class="image-container">
+                <img src="static/images/port1-1-1.png" alt="Main Image">
             </div>
-
-            <div class="text-content">
-                <h1>ELEVEN YELLOW</h1>
-                <p>WELCOME TO OUR LAB</p>
+            <div class="image-overlay">
+                <img src="static/images/port1-1-2.png" alt="Overlay Image">
             </div>
+        </div>
 
+        <div class="text-content">
+            <h1>Snake Classification</h1>
+            <p>Malayan krait vs Lycodon</p>
+        </div>
+
+        <div class="info-section">
+            <div class="image-container">
+                <img src="static/images/port1-1-1.png" alt="Additional Image">
+            </div>
+            <p>Here is an additional explanation about the differences between Malayan krait and Lycodon. The Malayan krait is known for its venomous bite, while the Lycodon is a non-venomous species, often mistaken for its more dangerous relatives.</p>
         </div>
     </div>
-</body>
+</div>
 
     <!-- <ul class="nav justify-content-center" style="padding-top: 1em;">
     <li class="nav-item">
@@ -152,4 +196,4 @@
 {% endif %}
 {% endfor %} -->
 
-    {% endblock %}
+{% endblock %}
