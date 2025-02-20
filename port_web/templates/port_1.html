@@ -13,25 +13,27 @@
     }
 
     .background {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
-    text-align: center;
-    margin-bottom: 60px;
-    width: 100%;
-    margin-top: 100px; /* เพิ่มระยะห่างจาก navbar */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        text-align: center;
+        margin-bottom: 60px;
+        width: 100%;
+        margin-top: 100px;
+        /* เพิ่มระยะห่างจาก navbar */
     }
 
-.container-fluid {
-    flex-grow: 1;
+    .container-fluid {
+        flex-grow: 1;
     }
 
     .image-wrapper {
         position: relative;
         width: 100%;
-        max-width: 800px; /* กำหนดขนาดสูงสุด */
+        max-width: 800px;
+        /* กำหนดขนาดสูงสุด */
         height: auto;
     }
 
@@ -118,69 +120,84 @@
     /* Responsive Layout */
     @media (max-width: 1200px) {
         .text-content h1 {
-            font-size: 48px; /* ลดขนาดหัวข้อบนจอใหญ่ */
+            font-size: 48px;
+            /* ลดขนาดหัวข้อบนจอใหญ่ */
         }
 
         .text-content p {
-            font-size: 28px; /* ลดขนาดข้อความบนจอใหญ่ */
+            font-size: 28px;
+            /* ลดขนาดข้อความบนจอใหญ่ */
         }
 
         .image-wrapper {
-            width: 90%; /* ลดขนาดภาพ */
+            width: 90%;
+            /* ลดขนาดภาพ */
         }
 
         .info-section {
-            padding: 40px; /* ลด padding ในบล็อค */
+            padding: 40px;
+            /* ลด padding ในบล็อค */
         }
 
         .info-section p {
-            font-size: 24px; /* ลดขนาดข้อความในบล็อค */
+            font-size: 24px;
+            /* ลดขนาดข้อความในบล็อค */
         }
     }
 
     @media (max-width: 768px) {
         .text-content h1 {
-            font-size: 36px; /* ลดขนาดหัวข้อบน tablet */
+            font-size: 36px;
+            /* ลดขนาดหัวข้อบน tablet */
         }
 
         .text-content p {
-            font-size: 24px; /* ลดขนาดข้อความบน tablet */
+            font-size: 24px;
+            /* ลดขนาดข้อความบน tablet */
         }
 
         .image-wrapper {
-            width: 100%; /* ให้ภาพเต็มจอ */
+            width: 100%;
+            /* ให้ภาพเต็มจอ */
             max-width: none;
         }
 
         .info-section {
-            padding: 30px; /* ลด padding บน tablet */
+            padding: 30px;
+            /* ลด padding บน tablet */
         }
 
         .info-section p {
-            font-size: 22px; /* ลดขนาดข้อความในบล็อคบน tablet */
+            font-size: 22px;
+            /* ลดขนาดข้อความในบล็อคบน tablet */
         }
     }
 
     @media (max-width: 480px) {
         .text-content h1 {
-            font-size: 28px; /* ลดขนาดหัวข้อบนมือถือ */
+            font-size: 28px;
+            /* ลดขนาดหัวข้อบนมือถือ */
         }
 
         .text-content p {
-            font-size: 20px; /* ลดขนาดข้อความบนมือถือ */
+            font-size: 20px;
+            /* ลดขนาดข้อความบนมือถือ */
         }
 
         .image-wrapper {
-            width: 100%; /* ให้ภาพเต็มจอ */
+            width: 100%;
+            /* ให้ภาพเต็มจอ */
             max-width: none;
         }
 
         .info-section {
-            padding: 20px; /* ลด padding บนมือถือ */
+            padding: 20px;
+            /* ลด padding บนมือถือ */
         }
 
         .info-section p {
-            font-size: 18px; /* ลดขนาดข้อความในบล็อคบนมือถือ */
+            font-size: 18px;
+            /* ลดขนาดข้อความในบล็อคบนมือถือ */
         }
     }
 </style>
@@ -205,67 +222,66 @@
             <div class="image-container">
                 <img src="static/images/port1-1-1.png" alt="Additional Image">
             </div>
-            <p>Here is an additional explanation about the differences between Malayan krait and Lycodon. The Malayan krait is known for its venomous bite, while the Lycodon is a non-venomous species, often mistaken for its more dangerous relatives.</p>
+            <p>Here is an additional explanation about the differences between Malayan krait and Lycodon. The Malayan
+                krait is known for its venomous bite, while the Lycodon is a non-venomous species, often mistaken for
+                its more dangerous relatives.</p>
         </div>
 
     </div>
 </div>
 
-    <!-- <ul class="nav justify-content-center" style="padding-top: 1em;">
+<ul class="nav justify-content-center" style="padding-top: 1em;">
     <li class="nav-item">
         {% if not current_user.is_authenticated %}
-            <h2>Login to comments</h2>
-            <div class="d-flex justify-content-center">
-                <a class="btn btn-primary " href="{{ url_for('login', port_id = 1)}}">
-                    Login
-                </a>
-            </div>
-        {% else %}
-            <a class="btn btn-primary" href="{{ url_for('create_note', port_id = 1) }}">
-                Create
+        <h2 class="text-center text-primary">Login to comment</h2>
+        <div class="d-flex justify-content-center mt-3">
+            <a class="btn btn-primary btn-sm" href="{{ url_for('login', port_id = 1) }}">
+                Login
             </a>
+        </div>
+        {% else %}
+        <div class="d-flex justify-content-center mt-3">
+            <a class="btn btn-success btn-sm" href="{{ url_for('create_note', port_id = 1) }}">
+                Create Comment
+            </a>
+        </div>
         {% endif %}
     </li>
 </ul>
 
 {% for note in notes %}
 {% if note.portfolio_id == 1 %}
-    <h1>port = {{ note.portfolio_id }}</h1>
-    <div class="card my-3">
-        <div class="card-body">
-            <h4 class="card-title">{{ note.title }}</h4>
-            <div class="card-text my-3">
-                {{ note.description }}
-            </div>
-            <div class="card-footer text-muted">
+<div class="card my-3 shadow-sm" style="border-radius: 8px; max-width: 700px; margin: auto;">
+    <div class="card-body">
+        <h5 class="card-title text-info">{{ note.title }}</h5>
+        <p class="card-text my-2" style="font-size: 0.9em;">
+            {{ note.description }}
+        </p>
+        <div class="card-footer text-muted d-flex justify-content-between">
+            <div>
                 Tags:
                 {% for t in note.tags %}
-                    <a href="{{ url_for('tags_view', tag_name=t.name) }}">
-                        {{t.name}}
-                    </a>
-                {% if current_user.is_authenticated and current_user.has_role("admin") %}
-                    <div>
-                        <a href="{{ url_for('update_note', tag_id=t.id) }}">edit note</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for('update_tags', tag_id=t.id) }}">edit tags</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for('delete_note', tag_id=t.id) }}">delete note</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for('delete_tags', tag_id=t.id) }}">delete tags</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for('delete', tag_id=t.id) }}">delete all</a>
-                    </div>
-                {% endif %}
+                <a class="badge bg-primary text-light me-2" href="{{ url_for('tags_view', tag_name=t.name) }}">
+                    {{ t.name }}
+                </a>
                 {% endfor %}
-                Last Update: {{ note.update_date }}
             </div>
+            {% if current_user.is_authenticated and current_user.has_role("admin") %}
+            <div>
+                <a href="{{ url_for('update_note', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit</a>
+                <a href="{{ url_for('update_tags', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
+                <a href="{{ url_for('delete_note', tag_id=t.id) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
+                <a href="{{ url_for('delete_tags', tag_id=t.id) }}" class="btn btn-danger btn-sm">Delete Tags</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="mt-2 text-muted text-end" style="font-size: 0.8em;">
+            Last Updated: {{ note.update_date }}
         </div>
     </div>
+</div>
 {% endif %}
-{% endfor %} -->
+{% endfor %}
+
 
 {% endblock %}
