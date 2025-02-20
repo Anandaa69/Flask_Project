@@ -72,9 +72,11 @@
 }
 
 .port-2 a {
+    max-width: 150px;
     position: absolute;
-    bottom: 20px; /* ระยะห่างจากขอบล่าง */
+    bottom: 40px;
     left: 50%;
+    text-align: center;
     /* transform: translateX(-50%); ทำให้ปุ่มอยู่ตรงกลาง */
 }
 
@@ -115,7 +117,7 @@
     <div class="text-zone">
         <h2>Welcome</h2>
         <p>This is a smooth transition between image and text.</p>
-        <a class="btn btn-primary btn-lg" href=" {{ url_for('port_3') }}" style="color: white;">
+        <a class="btn btn-primary " href=" {{ url_for('port_3') }}" style="color: white;">
             View
         </a>
     </div>

@@ -1,25 +1,141 @@
 {% extends 'base.html' %}
 {% block body %}
 <style>
-    .custom-position {
-        position: absolute;
-        top: 20%;
-        left: 50%;
-        transform: translate(-50%, -20%);
+.about-container {
+    position: relative;  /* เปลี่ยนจาก absolute เป็น relative */
+    top: auto;
+    left: auto;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.card {
+    max-width: 90%; /* ป้องกันการขยายใหญ่เกินหน้าจอ */
+    width: 400px; /* ให้มีขนาดเหมาะสม */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) { 
+    .card {
+        width: 90%; /* ลดขนาดเมื่อจอเล็ก */
+    }
+
+    .info-item img {
+        width: 25px; /* ปรับขนาดไอคอนเล็กลง */
+        height: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 15px; /* ลด padding เพื่อให้เล็กลง */
+    }
+
+    .info-section {
+        font-size: 12px; /* ปรับขนาดตัวอักษร */
+    }
+
+    .social-links img {
+        width: 20px; /* ลดขนาดโลโก้ Social */
+        height: 20px;
+    }
+}
+    .profile-img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .info-section {
+        margin-top: 15px;
+    }
+
+    .info-item {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .info-item img {
+    width: 30px;   /* ปรับให้ทุกไอคอนเท่ากัน */
+    height: 30px;
+    min-width: 30px; /* ป้องกันไม่ให้บางไอคอนเล็กลง */
+    object-fit: contain; /* ป้องกันการบิดรูป */
+}
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .social-links a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .social-links a:hover {
+        color: #007bff;
+    }
+
+    .social-links img {
+        width: 25px;
+        height: 25px;
+        margin-right: 8px;
     }
 </style>
-<div class="custom-postion">
-    <div class="card" style="width: 18rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-        <img src="/static/images/Shiba.png" class="card-img-top" alt="Your Photo">
+
+<div class="about-container">
+    <div class="card">
+        <img src="/static/images/Shiba.png" class="profile-img" alt="Your Photo">
         <div class="card-body">
             <h5 class="card-title">Your Name</h5>
-            <p class="card-text">This is a brief description about yourself.</p>
-            <a href="#" class="btn btn-primary">Contact Me</a>
+            <p class="card-text">AI Engineering Student passionate about technology and innovation.</p>
+
+            <!-- Social Links -->
+            <div class="social-links">
+                <a href="https://github.com/your-github" target="_blank">
+                    <img src="/static/images/github.png" alt="GitHub Logo"> GitHub
+                </a>
+                <a href="mailto:your.email@example.com">
+                    <img src="/static/images/email.webp" alt="Email Logo"> Email
+                </a>
+            </div>
+
+            <!-- University Information -->
+            <div class="info-section">
+                <div class="info-item">
+                    <img src="/static/images/PSU_Logo.png" alt="University Logo">
+                    <span>University Name</span>
+                </div>
+                <div class="info-item">
+                    <img src="/static/images/eng.png" alt="Faculty Icon">
+                    <span>Faculty of Engineering</span>
+                </div>
+                <div class="info-item">
+                    <img src="/static/images/ai.webp" class="" alt="AI Icon">
+                    <span>AI Engineering</span>
+                </div>
+            </div>
+
+            <a href="#" class="btn btn-primary mt-3">Contact Me</a>
         </div>
     </div>
 </div>
-
 {% endblock %}
