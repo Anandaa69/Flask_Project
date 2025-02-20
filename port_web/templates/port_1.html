@@ -1,7 +1,101 @@
 {% extends 'base.html'%}
 {% block body %}
 
-<ul class="nav justify-content-center" style="padding-top: 1em;">
+<style>
+    body {
+        background-color: #0a0a0a;
+        overflow-x: hidden;
+    }
+
+    .background {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: 100vh;
+        text-align: center;
+    }
+
+    .image-wrapper {
+        position: relative;
+        width: 450px; /* กำหนดขนาดพื้นฐานของบล็อคภาพ */
+        height: auto;
+    }
+
+    .image-container {
+        width: 100%;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
+        position: relative;
+        z-index: 1; /* อยู่ด้านหลัง */
+        margin-left: -30px; /* ขยับไปทางซ้าย */
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 30px;
+    }
+
+    .image-overlay {
+        position: absolute;
+        bottom: -30px; /* เลื่อนลงมาทับภาพหลัก */
+        right: -50px; /* ขยับไปทางขวา ให้เกินออกจากขอบ */
+        width: 350px; /* ปรับขนาดให้ใหญ่ขึ้น */
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+        z-index: 2; /* ให้อยู่บนสุด */
+    }
+
+    .image-overlay img {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+    }
+
+    .text-content {
+        margin-top: 30px;
+        color: white;
+    }
+
+    .text-content h1 {
+        font-size: 36px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .text-content p {
+        font-size: 20px;
+    }
+</style>
+
+<body>
+    <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+        <div class="background">
+
+            <div class="image-wrapper">
+                <div class="image-container">
+                    <img src="static/images/port1-1-1.png" alt="Main Image">
+                </div>
+
+                <div class="image-overlay">
+                    <img src="static/images/port1-1-2.png" alt="Overlay Image">
+                </div>
+            </div>
+
+            <div class="text-content">
+                <h1>ELEVEN YELLOW</h1>
+                <p>WELCOME TO OUR LAB</p>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+    <!-- <ul class="nav justify-content-center" style="padding-top: 1em;">
     <li class="nav-item">
         {% if not current_user.is_authenticated %}
             <h2>Login to comments</h2>
@@ -56,6 +150,6 @@
         </div>
     </div>
 {% endif %}
-{% endfor %}
+{% endfor %} -->
 
-{% endblock %}
+    {% endblock %}
