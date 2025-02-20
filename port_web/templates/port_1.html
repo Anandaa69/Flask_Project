@@ -8,27 +8,30 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* จัดเรียงส่วนต่างๆ ในแนวตั้ง */
-        margin: 0; /* ลบ margin เริ่มต้นของ body */
-    }
-
-    .container-fluid {
-        flex-grow: 1; /* ทำให้ container-fluid ยืดเต็มพื้นที่ */
+        justify-content: space-between;
+        margin: 0;
     }
 
     .background {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        position: relative;
-        text-align: center;
-        margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    text-align: center;
+    margin-bottom: 60px;
+    width: 100%;
+    margin-top: 100px; /* เพิ่มระยะห่างจาก navbar */
+    }
+
+.container-fluid {
+    flex-grow: 1;
     }
 
     .image-wrapper {
         position: relative;
-        width: 800px;
+        width: 100%;
+        max-width: 800px; /* กำหนดขนาดสูงสุด */
         height: auto;
     }
 
@@ -39,7 +42,6 @@
         box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
         position: relative;
         z-index: 1;
-        margin-left: -40px;
     }
 
     .image-container img {
@@ -82,14 +84,14 @@
 
     .info-section {
         margin-top: 100px;
-        padding: 30px;
+        padding: 50px;
         background-color: #1b3a2f;
         border-radius: 15px;
         box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
-        width: 80%;
-        max-width: 900px;
+        width: 90%;
+        max-width: 1000px;
         text-align: center;
-        flex-shrink: 0; /* ป้องกันการหดตัว */
+        flex-shrink: 0;
     }
 
     .info-section img {
@@ -100,7 +102,7 @@
 
     .info-section p {
         color: white;
-        font-size: 24px;
+        font-size: 28px;
         margin-top: 30px;
     }
 
@@ -110,7 +112,76 @@
         color: white;
         padding: 20px;
         text-align: center;
-        margin-top: auto; /* ทำให้ footer อยู่ที่ด้านล่างสุด */
+        margin-top: auto;
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 1200px) {
+        .text-content h1 {
+            font-size: 48px; /* ลดขนาดหัวข้อบนจอใหญ่ */
+        }
+
+        .text-content p {
+            font-size: 28px; /* ลดขนาดข้อความบนจอใหญ่ */
+        }
+
+        .image-wrapper {
+            width: 90%; /* ลดขนาดภาพ */
+        }
+
+        .info-section {
+            padding: 40px; /* ลด padding ในบล็อค */
+        }
+
+        .info-section p {
+            font-size: 24px; /* ลดขนาดข้อความในบล็อค */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .text-content h1 {
+            font-size: 36px; /* ลดขนาดหัวข้อบน tablet */
+        }
+
+        .text-content p {
+            font-size: 24px; /* ลดขนาดข้อความบน tablet */
+        }
+
+        .image-wrapper {
+            width: 100%; /* ให้ภาพเต็มจอ */
+            max-width: none;
+        }
+
+        .info-section {
+            padding: 30px; /* ลด padding บน tablet */
+        }
+
+        .info-section p {
+            font-size: 22px; /* ลดขนาดข้อความในบล็อคบน tablet */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .text-content h1 {
+            font-size: 28px; /* ลดขนาดหัวข้อบนมือถือ */
+        }
+
+        .text-content p {
+            font-size: 20px; /* ลดขนาดข้อความบนมือถือ */
+        }
+
+        .image-wrapper {
+            width: 100%; /* ให้ภาพเต็มจอ */
+            max-width: none;
+        }
+
+        .info-section {
+            padding: 20px; /* ลด padding บนมือถือ */
+        }
+
+        .info-section p {
+            font-size: 18px; /* ลดขนาดข้อความในบล็อคบนมือถือ */
+        }
     }
 </style>
 
@@ -136,6 +207,7 @@
             </div>
             <p>Here is an additional explanation about the differences between Malayan krait and Lycodon. The Malayan krait is known for its venomous bite, while the Lycodon is a non-venomous species, often mistaken for its more dangerous relatives.</p>
         </div>
+
     </div>
 </div>
 
