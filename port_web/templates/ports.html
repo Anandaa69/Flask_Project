@@ -11,8 +11,17 @@
         text-align: center;
     }
 
+    .custom-position h1 {
+    font-weight: bold; /* ทำให้ข้อความเป็นตัวหนา */
+    font-size: 4rem; /* ขยายขนาดฟอนต์ */
+    color: #8B0000; /* สีแดงเลือดหมู */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* เพิ่มเงาเพื่อให้ข้อความเด่นขึ้น */
+    }
     .portfolio-text {
+        text-align: center;
         font-size: 2rem;
+        font-weight: bold; /* ทำให้ข้อความเป็นตัวหนา */
+        color: #8B0000; /* สีแดงเลือดหมู */
         text-align: center;
     }
 
@@ -29,6 +38,11 @@
         overflow: hidden; /* Ensures content that overflows does not appear */
         background-color: black;
         color: white;
+        background-image: 
+        linear-gradient(to top, black 0%, transparent 25%), /* ไล่สีดำจากล่างขึ้นบน */
+        url('/static/images/bg.png'); /* เปลี่ยนเป็น path ของภาพที่คุณต้องการ */ /* เปลี่ยนเป็น path ของภาพที่คุณต้องการ */
+        background-size: cover;
+        background-position: center;
     }
 
     .second-section {
@@ -41,7 +55,7 @@
         flex: 7;
         background: 
             linear-gradient(to right, transparent 50%, black 100%), /* Gradient ไล่จากโปร่งใสไปดำ */
-            url('/static/images/bg.png'); /* ภาพพื้นหลัง */
+            url('/static/images/port1-1-2.png'); /* ภาพพื้นหลัง */
         background-size: cover;
         background-position: center;
         overflow: hidden;
