@@ -5,24 +5,25 @@
         position: absolute;
         top: 20%;
         left: 50%;
-        transform: translate(-50%, -20%);
+        transform: translate(-50%, 0%);
         display: flex;
         flex-direction: column;
         text-align: center;
     }
 
     .custom-position h1 {
-    font-weight: bold; /* ทำให้ข้อความเป็นตัวหนา */
-    font-size: 4rem; /* ขยายขนาดฟอนต์ */
-    color: #8B0000; /* สีแดงเลือดหมู */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* เพิ่มเงาเพื่อให้ข้อความเด่นขึ้น */
+        font-weight: bold; /* ทำให้ข้อความเป็นตัวหนา */
+        font-size: 10rem; /* ขยายขนาดฟอนต์ */
+        color: #be0303; /* สีแดงเลือดหมู */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* เพิ่มเงาเพื่อให้ข้อความเด่นขึ้น */
     }
     .portfolio-text {
         text-align: center;
-        font-size: 2rem;
+        font-size: 5rem;
         font-weight: bold; /* ทำให้ข้อความเป็นตัวหนา */
-        color: #8B0000; /* สีแดงเลือดหมู */
+        color: #414141; /* สีแดงเลือดหมู */
         text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .btn-container {
@@ -38,7 +39,7 @@
         overflow: hidden; /* Ensures content that overflows does not appear */
         color: white;
         background-image: 
-        linear-gradient(to top, #2b0204 0%, transparent 25%), /* ไล่สีดำจากล่างขึ้นบน */
+        linear-gradient(to top, #2b0204 0%, transparent 40%), /* ไล่สีดำจากล่างขึ้นบน */
         url('/static/images/bg.png'); /* เปลี่ยนเป็น path ของภาพที่คุณต้องการ */ /* เปลี่ยนเป็น path ของภาพที่คุณต้องการ */
         background-size: cover;
         background-position: center;
@@ -90,6 +91,16 @@
         overflow: hidden; 
     }
 
+    .image-zone_4 {
+        flex: 7;
+        background: 
+            linear-gradient(to left, transparent 65%, #2b0204 100%), /* Gradient ไล่จากโปร่งใสไปดำ */
+            url('/static/images/port4/1.png'); /* ภาพพื้นหลัง */
+        background-size: cover;
+        background-position: center;
+        overflow: hidden; 
+    }
+
     .text-zone a {
         max-width: 150px; /* กำหนดขนาดสูงสุดของปุ่ม */
         text-align: center; /* จัดให้ข้อความอยู่ตรงกลาง */
@@ -122,12 +133,81 @@
         justify-content: center;
         height: 75px;
     }
+
+    .image-zone:hover,
+    .image-zone_2:hover,
+    .image-zone_3:hover,
+    .image-zone_4:hover {
+        transform: scale(1.05); /* ขยายขนาด */
+        transition: transform 0.3s ease, filter 0.3s ease;
+        filter: brightness(1.2); /* ทำให้รูปภาพสว่างขึ้น */
+    }
+
+    .text-zone h2:hover {
+    color: #ff4444; /* เปลี่ยนสีข้อความ */
+    text-shadow: 3px 3px 8px rgba(255, 0, 0, 0.5);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .text-zone a:hover {
+    background-color: #ff4444; /* เปลี่ยนสีปุ่ม */
+    color: white;
+    transform: scale(1.1); /* ขยายปุ่มเล็กน้อย */
+    box-shadow: 0px 4px 10px rgba(255, 68, 68, 0.5);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .custom-position h1:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+        .custom-position h1 {
+        font-size: 6rem; /* ขยายขนาดฟอนต์ */
+        }
+        .portfolio-text {
+            font-size: 3rem;
+        }
+        .second-section {
+            display: flex;
+            flex-direction: column;
+            min-height: auto;
+            text-align: center;
+            margin-bottom: 0; /* ลดระยะห่าง */
+        }
+
+        .block-bar {
+            height: 40px; /* ลดความสูงของ block-bar */
+        }
+
+        .text-zone {
+            padding: 15px;
+            margin-top: -20px; /* ลดระยะห่างจากด้านบน */
+        }
+        .image-zone {
+            background-position: top;
+        }
+
+        .image-zone_2 {
+            background-position: 0% 100%;
+        }
+
+        .image-zone_3 {
+            background-position: 80% 100%;
+        }
+
+        .image-zone_4 {
+            background-position: 60% 100%;
+        }
+}
+
 </style>
 
 <div class="first-section">
     <div class="custom-position">
         {% if current_user.is_authenticated %}
-        <h1 class="display-1">Hi, {{ current_user.username }}</h1>
+        <h1 class="display-1" >Hi, {{ current_user.username }}</h1>
         {% else %}
         <h1 class="display-1">Hi, Visitor</h1>
         {% endif %}
@@ -159,7 +239,7 @@
     </div>
 </div>
 
-<div class="block-bar"></div>
+<div class="block-bar" style="background-color: rgb(26, 0, 0);"></div>
 
 <div class="second-section">
     <div class="text-zone">
@@ -182,6 +262,6 @@
             View
         </a>
     </div>
-    <div class="image-zone_3"></div>
+    <div class="image-zone_4"></div>
 </div>
 {% endblock %}

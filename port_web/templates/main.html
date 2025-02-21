@@ -10,13 +10,17 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        transition: transform 0.3s ease; /* Smooth transition */
+        transition: transform 0.3s ease;
+        /* Smooth transition */
     }
 
     .portfolio-text {
-        font-size: 4vw; /* Use relative units for responsiveness */
-        color: white; /* Change to white so text is visible on black background */
-        transition: transform 0.3s ease; /* Smooth transition */
+        font-size: 4vw;
+        /* Use relative units for responsiveness */
+        color: white;
+        /* Change to white so text is visible on black background */
+        transition: transform 0.3s ease;
+        /* Smooth transition */
     }
 
     .btn-container {
@@ -24,18 +28,21 @@
         bottom: 20%;
         left: 50%;
         transform: translateX(-50%);
-        transition: transform 0.3s ease; /* Smooth transition */
+        transition: transform 0.3s ease;
+        /* Smooth transition */
     }
 
     .btn-primary {
-        transition: transform 0.3s ease; /* Smooth transition */
+        transition: transform 0.3s ease;
+        /* Smooth transition */
     }
 
     /* Hover effect for Anandaa69, Trustme text, and button */
     .custom-position h1:hover,
     .custom-position .portfolio-text:hover,
     .btn-container a:hover {
-        transform: scale(1.1); /* Make text and button grow */
+        transform: scale(1.1);
+        /* Make text and button grow */
     }
 
     .bg {
@@ -51,45 +58,55 @@
     /* Media queries for responsiveness */
     @media (max-width: 768px) {
         .custom-position {
-            top: 10%; /* Adjust top for smaller screens */
+            top: 10%;
+            /* Adjust top for smaller screens */
         }
 
         .portfolio-text {
-            font-size: 6vw; /* Adjust text size for smaller screens */
+            font-size: 6vw;
+            /* Adjust text size for smaller screens */
         }
 
         .btn-container {
-            bottom: 15%; /* Adjust bottom for smaller screens */
+            bottom: 15%;
+            /* Adjust bottom for smaller screens */
         }
 
         .custom-position h1 {
-            font-size: 5rem; /* Adjust font size for smaller screens */
+            font-size: 5rem;
+            /* Adjust font size for smaller screens */
         }
 
         .custom-position .portfolio-text {
-            font-size: 5vw; /* Adjust portfolio text size for smaller screens */
+            font-size: 5vw;
+            /* Adjust portfolio text size for smaller screens */
         }
     }
 
     @media (max-width: 480px) {
         .custom-position {
-            top: 5%; /* Further adjust for very small screens */
+            top: 5%;
+            /* Further adjust for very small screens */
         }
 
         .portfolio-text {
-            font-size: 8vw; /* Further adjust text size for very small screens */
+            font-size: 8vw;
+            /* Further adjust text size for very small screens */
         }
 
         .btn-container {
-            bottom: 10%; /* Adjust bottom for very small screens */
+            bottom: 10%;
+            /* Adjust bottom for very small screens */
         }
 
         .custom-position h1 {
-            font-size: 4rem; /* Adjust font size for very small screens */
+            font-size: 4rem;
+            /* Adjust font size for very small screens */
         }
 
         .custom-position .portfolio-text {
-            font-size: 6vw; /* Adjust portfolio text size for very small screens */
+            font-size: 6vw;
+            /* Adjust portfolio text size for very small screens */
         }
     }
 </style>
@@ -103,10 +120,23 @@
         <h1 class="display-1" style="font-size: 50px; color: #c21b1b;">"Trust me, I'm an engineer."</h1>
     </div>
     <!-- ปุ่ม Let's Start -->
-    <div class="btn-container">
-        <a class="btn btn-primary btn-lg" href=" {{ url_for('ports') }}" style="color: white;">
+    <!-- ปุ่ม Let's Start -->
+    <div class="btn-container d-flex flex-column align-items-center gap-2">
+        <a class="btn btn-outline-light" href="{{ url_for('ports') }}" style="background-color: #005bd3; width: 150px;">
             Let's Start
         </a>
+        <div class="d-flex flex-column gap-2">
+            <a href="{{ url_for('register') }}" class="btn btn-outline-light"
+                style="background-color: #005bd3; width: 150px;">
+                Sign In
+            </a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-light"
+                style="background-color: #005bd3; width: 150px;">
+                Login
+            </a>
+        </div>
     </div>
+
 </div>
+
 {% endblock %}
