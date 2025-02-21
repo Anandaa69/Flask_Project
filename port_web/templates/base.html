@@ -12,12 +12,43 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
+
+    <style>
+        @font-face {
+            font-family: 'MyCustomFont';
+            src: url('{{ url_for('static', filename='fonts/RSU_BOLD.ttf') }}') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* ใช้ฟอนต์ที่กำหนด */
+        body {
+            font-family: 'MyCustomFont', sans-serif;
+            background-image: url('static/images/bg.png');
+            background-size: cover; /* ให้ภาพเต็มหน้าจอ */
+            background-position: center; /* ให้ภาพอยู่กลาง */
+            background-repeat: no-repeat; /* ห้ามซ้ำภาพ */
+            background-attachment: fixed; /* ให้ภาพติดกับหน้าจอและไม่เลื่อนตามการเลื่อนหน้า */
+            min-height: 100vh; /* ให้ความสูงขั้นต่ำของหน้าเป็น 100% ของความสูงหน้าจอ */
+        }
+
+
+        .navbar-brand {
+            color: #eeeeee;
+            /* ใส่สีขาวให้กับข้อความใน navbar */
+        }
+
+        .nav-link {
+            color: #eeeeee;
+            /* ใส่สีแดงให้กับลิงก์ในเมนู navbar */
+        }
+
+    </style>
 </head>
 
-
-<body class="d-flex flex-column" style="min-height: 100vh; ">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top" data-bs-theme="dark">
-        <div class="container-fluid">
+<body class="d-flex flex-column" style="min-height: 100vh;">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <div class="container-fluid " style="background-color: #890a0b;">
             <a class="navbar-brand" href="{{ url_for('main')}}">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,16 +78,15 @@
                     <span class="navbar-text">
                         {% if current_user.is_authenticated %}
                         <div class="d-flex flex-column align-items-start w-100" ">
-                            <span>{{ current_user.username }}</span>
-                            <a class=" nav-link mt-auto align-self-center" href="{{ url_for('logout') }}">logout</a>
+                            <span style="color: #eeeeee">{{ current_user.username }}</span>
+                            <a class=" nav-link mt-auto align-self-center" href="{{ url_for('logout') }}" style="color: #999999">logout</a>
                         </div>
+                        {% else %}
+                        <a class="nav-link" href="{{ url_for('register') }}" style="color: #eeeeee">sign in</a>
+                        {% endif %}
+                    </span>
                 </div>
-                {% else %}
-                <a class="nav-link" href="{{ url_for('register') }}">sign in</a>
-                {% endif %}
-                </span>
             </div>
-        </div>
         </div>
     </nav>
     <div class="flex-grow-1">
@@ -65,25 +95,28 @@
         {% endblock %}
     </div>
 </body>
-<div data-bs-theme="dark">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top mt-auto" style="background-color: #2b3340" >
+
+<div>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top mt-auto"
+        style="background-color: #890a0b;">
         <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-decoration-none lh-1" style="color: #eeeeee;">
                 <svg class="bi" width="30" height="24">
                     <use xlink:href="#bootstrap"></use>
                 </svg>
             </a>
-            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+            <span class="mb-3 mb-md-0" style="color: #eeeeee;">© 2024 Company, Inc</span>
         </div>
 
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex " style="padding-right: 10px;">
-            <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-twitter" width="24"
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex" style="padding-right: 10px;">
+            <li class="ms-3"><a href="#" style="color: #eeeeee;"><i class="bi bi-twitter" width="24"
                         height="24"></i></a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-instagram" width="24"
+            <li class="ms-3"><a href="#" style="color: #eeeeee;"><i class="bi bi-instagram" width="24"
                         height="24"></i></a></li>
-            <li class="ms-3"><a class="text-body-secondary" href="#"><i class="bi bi-facebook" width="24"
+            <li class="ms-3"><a href="#" style="color: #eeeeee;"><i class="bi bi-facebook" width="24"
                         height="24"></i></a></li>
         </ul>
     </footer>
 </div>
+
 </html>
