@@ -1,48 +1,35 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block body %}
 
-<ul class="nav justify-content-center" style="padding-top: 1em;">
-    <li class="nav-item">
-        <a class="btn btn-primary" href="{{ url_for('create_note') }}">
-            Create
-        </a>
-    </li>
-</ul>
-{% for note in notes %}
-<div class="card my-3">
-    <div class="card-body">
-        <h4 class="card-title">{{ note.title }}</h4>
-        <div class="card-text my-3">
-            {{ note.description }}
+<div class="container mt-5">
+    <form action="" method="POST" class="bg-white text-dark p-5 rounded-lg shadow-sm" style="border-radius: 50px;">
+        <h3 class="my-4 text-center text-primary" style="font-size: 2.5rem;">Login</h3>
+        {{ form.hidden_tag() }}
+
+        <div class="form-group my-3">
+            <label for="username" class="form-label text-dark" style="font-size: 1.2rem;">{{ form.username.label }}</label>
+            {{ form.username(class_='form-control', value=form_name, style="font-size: 1.2rem; border-radius: 20px;") }}
         </div>
-        <div class="card-footer text-muted">
-            Tags:
-            {% for t in note.tags %}
-                <a href="{{ url_for('tags_view', tag_name=t.name) }}">
-                    {{t.name}}
-                </a>
-            {% if current_user.is_authenticated and current_user.has_role("admin") %}
-                <div>
-                    <a href="{{ url_for('update_note', tag_id=t.id) }}">edit note</a>
-                </div>
-                <div>
-                    <a href="{{ url_for('update_tags', tag_id=t.id) }}">edit tags</a>
-                </div>
-                <div>
-                    <a href="{{ url_for('delete_note', tag_id=t.id) }}">delete note</a>
-                </div>
-                <div>
-                    <a href="{{ url_for('delete_tags', tag_id=t.id) }}">delete tags</a>
-                </div>
-                <div>
-                    <a href="{{ url_for('delete', tag_id=t.id) }}">delete all</a>
-                </div>
-            {% endif %}
-            {% endfor %}
-            Last Update: {{ note.update_date }}
+
+        <div class="form-group my-3">
+            <label for="password" class="form-label text-dark" style="font-size: 1.2rem;">{{ form.password.label }}</label>
+            {{ form.password(class_='form-control', value=form_name, style="font-size: 1.2rem; border-radius: 20px;") }}
         </div>
-    </div>
+
+        {% if request.args.get('error') %}
+        <div class="my-3">
+            <p class="text-danger text-center" style="font-size: 1.1rem;">{{ request.args.get('error') }}</p>
+        </div>
+        {% endif %}
+
+        <div class="my-3 text-center">
+            <p class="text-dark" style="font-size: 1.1rem;">Don't have an account? <a href="{{ url_for('register') }}" class="text-primary">Register here</a></p>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg px-5 py-2 mt-4 rounded-pill" style="font-size: 1.3rem;">Login</button>
+        </div>
+    </form>
 </div>
-{% endfor %}
 
 {% endblock %}

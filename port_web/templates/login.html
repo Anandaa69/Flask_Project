@@ -2,17 +2,17 @@
 {% block body %}
 
 <div class="container mt-5">
-    <form action="" method="POST" class="bg-white text-dark p-5 rounded-lg shadow-sm">
-        <h3 class="my-4 text-center text-primary">Login</h3>
+    <form action="" method="POST" class="bg-white text-dark p-5 rounded-lg shadow-sm" style="border-radius: 50px;">
+        <h3 class="my-4 text-center text-primary" style="font-size: 2.5rem;">Login</h3>
         {{ form.hidden_tag() }}
 
         <div class="form-group my-3">
-            <label for="username" class="form-label text-dark">{{ form.username.label }}</label>
+            <label for="username" class="form-label text-dark" style="font-size: 1.2rem;">{{ form.username.label }}</label>
             {{ form.username(class_='form-control', value=form_name) }}
         </div>
 
         <div class="form-group my-3">
-            <label for="password" class="form-label text-dark">{{ form.password.label }}</label>
+            <label for="password" class="form-label text-dark" style="font-size: 1.2rem;">{{ form.password.label }}</label>
             {{ form.password(class_='form-control', value=form_name) }}
         </div>
 
@@ -23,11 +23,11 @@
         {% endif %}
 
         <div class="my-3 text-center">
-            <p class="text-dark">Don't have an account? <a href="{{ url_for('register') }}" class="text-primary">Register here</a></p>
+            <p class="text-dark" style="font-size: 1.1rem;">Don't have an account? <a href="{{ url_for('register') }}" class="text-primary">Register here</a></p>
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn btn-primary btn-lg px-5 py-2 mt-4 rounded-pill">Login</button>
+            <button type="submit" class="btn btn-primary btn-lg px-5 py-2 mt-4 rounded-pill" style="font-size: 1.3rem;">Login</button>
         </div>
     </form>
 </div>
