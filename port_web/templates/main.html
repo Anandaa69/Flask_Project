@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
 <style>
+    /* General styles */
     .custom-position {
         position: absolute;
         top: 20%;
@@ -8,31 +9,98 @@
         transform: translate(-50%, -20%);
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
+        align-items: center;
+        transition: transform 0.3s ease; /* Smooth transition */
     }
 
     .portfolio-text {
-        font-size: 4rem;
+        font-size: 4vw; /* Use relative units for responsiveness */
+        color: white; /* Change to white so text is visible on black background */
+        transition: transform 0.3s ease; /* Smooth transition */
     }
 
     .btn-container {
         position: absolute;
-        bottom: 40%;
-        /* ปรับให้ปุ่มอยู่ด้านล่าง */
+        bottom: 20%;
         left: 50%;
         transform: translateX(-50%);
+        transition: transform 0.3s ease; /* Smooth transition */
+    }
+
+    .btn-primary {
+        transition: transform 0.3s ease; /* Smooth transition */
+    }
+
+    /* Hover effect for Anandaa69, Trustme text, and button */
+    .custom-position h1:hover,
+    .custom-position .portfolio-text:hover,
+    .btn-container a:hover {
+        transform: scale(1.1); /* Make text and button grow */
     }
 
     .bg {
-        background-color: black;
         color: black;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    /* Media queries for responsiveness */
+    @media (max-width: 768px) {
+        .custom-position {
+            top: 10%; /* Adjust top for smaller screens */
+        }
+
+        .portfolio-text {
+            font-size: 6vw; /* Adjust text size for smaller screens */
+        }
+
+        .btn-container {
+            bottom: 15%; /* Adjust bottom for smaller screens */
+        }
+
+        .custom-position h1 {
+            font-size: 5rem; /* Adjust font size for smaller screens */
+        }
+
+        .custom-position .portfolio-text {
+            font-size: 5vw; /* Adjust portfolio text size for smaller screens */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .custom-position {
+            top: 5%; /* Further adjust for very small screens */
+        }
+
+        .portfolio-text {
+            font-size: 8vw; /* Further adjust text size for very small screens */
+        }
+
+        .btn-container {
+            bottom: 10%; /* Adjust bottom for very small screens */
+        }
+
+        .custom-position h1 {
+            font-size: 4rem; /* Adjust font size for very small screens */
+        }
+
+        .custom-position .portfolio-text {
+            font-size: 6vw; /* Adjust portfolio text size for very small screens */
+        }
     }
 </style>
 
 <div class="bg">
     <div class="custom-position text-black">
-        <h1 class="display-1" style="font-size: 6rem;">Anandaa69</h1>
-        <span class="portfolio-text">Portfolio</span>
+        <h1 class="display-1" style="font-size: 6rem; color: black">Anandaa69</h1>
+        <span class="portfolio-text" style="color: black;">Portfolio</span>
+    </div>
+    <div class="custom-position text-black" style="top: 40%; left: 50%;">
+        <h1 class="display-1" style="font-size: 50px; color: #c21b1b;">"Trust me, I'm an engineer."</h1>
     </div>
     <!-- ปุ่ม Let's Start -->
     <div class="btn-container">
