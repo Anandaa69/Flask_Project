@@ -29,6 +29,19 @@
         flex-grow: 1;
     }
 
+    .info-title {
+        font-size: 50px;
+        /* ขนาดใหญ่ให้เด่น */
+        font-weight: bold;
+        color: #ff0055;
+        /* สีแดงชมพู */
+        text-align: center;
+        margin-top: 40px;
+        /* เพิ่มระยะห่างจากภาพ */
+        text-shadow: 5px 5px 15px rgba(255, 0, 85, 0.7);
+        /* เงาเพิ่มมิติ */
+    }
+
     .image-wrapper {
         position: relative;
         width: 100%;
@@ -103,23 +116,27 @@
     }
 
     .info-section p {
+        font-size: 20px;
         color: white;
-        font-size: 28px;
-        margin-top: 30px;
+        text-align: center;
+        margin-top: 40px;
+        /* เพิ่มระยะห่างจาก Accuracy */
     }
 
     .image-container {
-    width: 100%;
-    border-radius: 30px;
-    overflow: visible; /* อนุญาตให้ป้ายหัวข้อออกมานอกกรอบ */
-    position: relative;
-    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
-    z-index: 1;
+        width: 100%;
+        border-radius: 30px;
+        overflow: visible;
+        /* อนุญาตให้ป้ายหัวข้อออกมานอกกรอบ */
+        position: relative;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
+        z-index: 1;
     }
 
     .image-title {
         position: absolute;
-        top: -40px; /* ปรับให้ป้ายออกมานอกกรอบภาพหลัก */
+        top: -40px;
+        /* ปรับให้ป้ายออกมานอกกรอบภาพหลัก */
         left: 50%;
         transform: translateX(-50%);
         width: 90%;
@@ -132,6 +149,83 @@
         height: auto;
     }
 
+    .accuracy-percentage {
+        font-size: 100px;
+        /* ขนาดใหญ่สุด */
+        font-weight: bold;
+        color: #ff0055;
+        /* สีแดงชมพู */
+        text-align: center;
+        margin-top: 50px;
+        /* เพิ่มระยะห่างจากภาพ */
+        text-shadow: 5px 5px 15px rgba(255, 0, 85, 0.7);
+        /* เงาให้ดูมีมิติ */
+    }
+
+    .accuracy-text {
+        font-size: 36px;
+        /* ขนาดรองลงมา */
+        font-weight: bold;
+        color: #ff3366;
+        /* โทนแดงชมพู */
+        text-align: center;
+        margin-top: 10px;
+        /* เว้นระยะจากตัวเลข */
+        text-shadow: 3px 3px 10px rgba(255, 51, 102, 0.7);
+    }
+
+    .machine-learning-title {
+        font-size: 2.5em;
+        color: #FFB84D;
+        /* สีทองอมส้ม */
+        font-weight: bold;
+        text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        margin-top: 20px;
+        text-align: center;
+        letter-spacing: 2px;
+        background: linear-gradient(45deg, #FFB84D, #FF6347);
+        /* สีไล่ระดับ */
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .machine-learning-title:hover {
+        color: #FFF;
+        transform: scale(1.05);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* สำหรับ hover บนบล็อค .info-section */
+    .info-section:hover {
+        transform: translateY(-10px);
+        /* เคลื่อนที่เล็กน้อย */
+        box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.4);
+        /* เพิ่มเงาให้โดดเด่น */
+        transition: all 0.3s ease;
+        /* ทำให้การเคลื่อนไหวเรียบเนียน */
+    }
+
+    /* สำหรับ hover บนตัวเลข Accuracy */
+    .accuracy-percentage:hover {
+        color: #FF6347;
+        /* เปลี่ยนสีเมื่อ hover */
+        transform: scale(1.1);
+        /* ขยายตัวเลขเมื่อ hover */
+        text-shadow: 5px 5px 15px rgba(255, 99, 71, 0.7);
+        /* เพิ่มเงา */
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* สำหรับ hover บนข้อความ Accuracy */
+    .accuracy-text:hover {
+        color: #FF66A1;
+        /* เปลี่ยนสีเมื่อ hover */
+        text-shadow: 3px 3px 10px rgba(255, 102, 161, 0.7);
+        /* เพิ่มเงา */
+        transition: color 0.3s ease-in-out;
+    }
 
     footer {
         width: 100%;
@@ -241,7 +335,9 @@
         <div class="text-content">
             <h1>Snake Classification</h1>
             <p>Malayan krait vs Lycodon</p>
+            <h2 class="machine-learning-title">Machine Learning Project</h2>
         </div>
+
         <div class="info-section">
             <div class="image-container">
                 <img src="static/images/port1-5.png" alt="Additional Image">
@@ -249,13 +345,117 @@
                     <img src="static/images/port1-4.png" alt="Title Banner">
                 </div>
             </div>
-            <p>Here is an additional explanation about the differences between Malayan krait and Lycodon. The Malayan
-                krait is known for its venomous bite, while the Lycodon is a non-venomous species, often mistaken for
-                its more dangerous relatives.</p>
+            <p>งูทับสมิงคลาและงูปล้องฉนวนเป็นงูสองชนิดที่มีรูปลักษณ์คล้ายคลึงกันมาก จนหลายคนอาจสับสนและแยกไม่ออก
+                ซึ่งความเหมือนกันนี้ก็มีความต่างที่น่ากลัว คืองูทับสมิงคลานั้นเป็นงูมีพิษและพิษนั้นรุนแรงเป็นอันดับ 1
+                ในประเทศไทย หากถูกกัดมีโอกาสเสียชีวิตสูงถึง 90% แต่กลับกันงูปล้องฉนวนนั้นเป็นงูที่ไม่มีพิษ
+                ดังนั้นการรู้ที่เราสามารถจำแนกความแตกต่างระหว่างงูสองชนิดนี้ได้ก็เป็นเรื่องที่ดี
+                เพื่อความปลอดภัยของตัวเองและผู้อื่น</p>
+            <p>The Malayan krait and the Lycodon are two species of snakes that have very similar appearances, which can
+                easily confuse many people and make it difficult to distinguish between them. The dangerous difference
+                between them is that the Malayan krait is venomous, with its venom being ranked the deadliest in
+                Thailand. If bitten, the chance of death is as high as 90%. On the other hand, the Lycodon is
+                non-venomous. Therefore, it is important to be able to distinguish between these two species for your
+                own safety and the safety of others.</p>
         </div>
 
+        <div class="info-section">
+            <div class="image-container">
+                <img src="static/images/port1-7.png" alt="Additional Image">
+                <div class="image-title">
+                    <img src="static/images/port1-6.png" alt="Title Banner">
+                </div>
+            </div>
+            <h1 class="info-title">Open CV</h1>
+            <p>CV หรือ Computer Vision เป็นไลบรารีโอเพนซอร์สที่ใช้ในการประมวลผลภาพและวิดีโออย่างแพร่หลาย
+                โดยเราจะใช้ในการอ่านภาพ ปรับขนาดภาพ สกัดภาพเป็นแต่ละสี และนำไปใช้ต่อใน Deep Learning</p>
+            <p>CV, or Computer Vision, is an open-source library widely used for image and video processing. It allows
+                us to read images, resize them, extract individual color channels, and further use them in Deep Learning
+                applications. </p>
+            <h1 class="info-title">CNN</h1>
+            <p>เป็นโครงข่ายประสาทเทียมชนิดหนึ่ง
+                ใช้หลักการมองเห็นของมนุษย์ที่มองพื้นที่เป็นส่วนย่อยๆและนำกลุ่มของพื้นที่ย่อยๆมาผสานกันเพื่อตัดสินใจว่าภาพนั้นคืออะไร
+            </p>
+            <p>
+                It is a type of artificial neural network that uses the human vision principle, where the brain views a
+                scene as small parts and then combines these smaller regions to make a decision about what the image is.
+            </p>
+        </div>
+
+        <div class="info-section">
+            <div class="image-container">
+                <img src="static/images/port1-5.png" alt="Additional Image">
+                <div class="image-title">
+                    <img src="static/images/port1-4.png" alt="Title Banner">
+                </div>
+            </div>
+
+            <!-- เพิ่มตัวเลขเปอร์เซ็นต์ใหญ่ -->
+            <h1 class="accuracy-percentage">73%</h1>
+            <h3 class="accuracy-text">Accuracy</h3>
+
+            <p>โมเดลของเราจะมีค่าความแม่นยำ 73% <br>#ค่าความแม่นยำไม่ได้สูงมากเพราะภาพ Dataset มีจำนวนน้อย และหายาก</p>
+            <p>Our model has an accuracy of 73%.<br>
+                #The accuracy is not very high because the dataset images are few and rare.</p>
+        </div>
+
+        <!-- Google Drive Icon and Link without card, larger size and hover effect -->
+        <div class="google-drive-section">
+            <!-- Google Drive Icon (increased size) -->
+            <img src="static/images/Google-Drive-Logo.png" alt="Google Drive" class="google-drive-icon">
+            <!-- Link to Google Drive -->
+            <a href="https://drive.google.com" target="_blank" class="google-drive-text">
+                Go to Google Drive
+            </a>
+        </div>
     </div>
 </div>
+
+<style>
+    /* Google Drive Section without card styling */
+    .google-drive-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+        /* Increased top margin */
+    }
+
+    /* Google Drive Icon - Increase size further */
+    .google-drive-icon {
+        width: 250px;
+        /* Increased size */
+        height: auto;
+        transition: transform 0.3s ease;
+        /* Animation on hover */
+    }
+
+    /* Google Drive Text - Increase size further */
+    .google-drive-text {
+        font-size: 48px;
+        /* Larger text */
+        font-weight: bold;
+        color: #4CAF50;
+        text-decoration: none;
+        margin-top: 30px;
+        /* Spacing between icon and text */
+        transition: color 0.3s, transform 0.3s;
+        /* Animation on hover */
+    }
+
+    /* Hover effect for Google Drive icon */
+    .google-drive-icon:hover {
+        transform: scale(1.1);
+        /* Slightly enlarge the icon on hover */
+    }
+
+    /* Hover effect for Google Drive link */
+    .google-drive-text:hover {
+        color: #45a049;
+        /* Darker green on hover */
+        transform: scale(1.1);
+        /* Slightly enlarge the text on hover */
+    }
+</style>
 
 <ul class="nav justify-content-center" style="padding-top: 1em;">
     <li class="nav-item">
