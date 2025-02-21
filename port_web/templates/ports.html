@@ -70,29 +70,58 @@
         padding: 20px
     }
 
-    .text-zone a {
-    max-width: 150px; /* กำหนดขนาดสูงสุดของปุ่ม */
-    text-align: center; /* จัดให้ข้อความอยู่ตรงกลาง */
+    .image-zone_2 {
+        flex: 7;
+        background: 
+            linear-gradient(to right, transparent 65%, #2b0204 100%), /* Gradient ไล่จากโปร่งใสไปดำ */
+            url('/static/images/port2/bg.png'); /* ภาพพื้นหลัง */
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
     }
 
+    .image-zone_3 {
+        flex: 7;
+        background: 
+            linear-gradient(to left, transparent 65%, #2b0204 100%), /* Gradient ไล่จากโปร่งใสไปดำ */
+            url('/static/images/port3/C1.png'); /* ภาพพื้นหลัง */
+        background-size: cover;
+        background-position: center;
+        overflow: hidden; 
+    }
+
+    .text-zone a {
+        max-width: 150px; /* กำหนดขนาดสูงสุดของปุ่ม */
+        text-align: center; /* จัดให้ข้อความอยู่ตรงกลาง */
+    }
     .port-2 {
-    position: relative;
-    height: 800px;
-    overflow: hidden;
-    background-size: cover;
-    background: linear-gradient(to top, transparent 65%, #2b0204 100%),
-                url('/static/images/bg.png');
-}
+        position: relative;
+        height: 800px;
+        overflow: hidden;
+        background-image: 
+            linear-gradient(to right, transparent 0%, #2b0204 100%), 
+            url('/static/images/port2/bg.png');
 
-.port-2 a {
-    max-width: 150px;
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    text-align: center;
-    /* transform: translateX(-50%); ทำให้ปุ่มอยู่ตรงกลาง */
-}
+    }
 
+
+    .port-2 a {
+        max-width: 150px;
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        text-align: center;
+        /* transform: translateX(-50%); ทำให้ปุ่มอยู่ตรงกลาง */
+    }
+
+    .block-bar {
+        flex: 3;
+        background-color: #2b0204; /* สีพื้นหลังของโซนข้อความ */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 75px;
+    }
 </style>
 
 <div class="first-section">
@@ -117,15 +146,21 @@
     </div>
 </div>
 
-<div class="text-zone" style="height: 225px;">
-    <h2>Welcome</h2>
-    <p>This is a smooth transition between image and text.</p>
+<div class="block-bar"></div>
+
+<div class="second-section">
+    <div class="image-zone_2"></div>
+    <div class="text-zone">
+        <h2>Welcome</h2>
+        <p>This is a smooth transition between image and text.</p>
+        <a class="btn btn-primary btn-lg" href=" {{ url_for('port_1') }}" style="color: white;">
+            View
+        </a>
+    </div>
 </div>
-<div class="port-2">
-    <a class="btn btn-primary btn-lg" href=" {{ url_for('port_2') }}" style="color: white;">
-        View
-    </a>
-</div>
+
+<div class="block-bar"></div>
+
 <div class="second-section">
     <div class="text-zone">
         <h2>Welcome</h2>
@@ -134,7 +169,19 @@
             View
         </a>
     </div>
-    <div class="image-zone" style="background: linear-gradient(to left, transparent 65%, #2b0204 100%),
-    url('/static/images/bg.png');"></div>
+    <div class="image-zone_3"></div>
+</div>
+
+<div class="block-bar"></div>
+
+<div class="second-section">
+    <div class="text-zone">
+        <h2>Welcome</h2>
+        <p>This is a smooth transition between image and text.</p>
+        <a class="btn btn-primary " href=" {{ url_for('port_3') }}" style="color: white;">
+            View
+        </a>
+    </div>
+    <div class="image-zone_3"></div>
 </div>
 {% endblock %}

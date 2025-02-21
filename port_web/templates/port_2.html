@@ -360,7 +360,7 @@
 
         <div class="info-section">
             <div class="image-container">
-                <img src="static/images/port2/5.png" alt="Additional Image">
+                <img src="static/images/port2/bg.png" alt="Additional Image">
             </div>
             <h1 class="info-title">Overview</h1>
             <p>
@@ -487,13 +487,13 @@
         {% if not current_user.is_authenticated %}
         <h2 class="text-center text-primary">Login to comment</h2>
         <div class="d-flex justify-content-center mt-3">
-            <a class="btn btn-primary btn-sm" href="{{ url_for('login', port_id = 1) }}">
+            <a class="btn btn-primary btn-sm" href="{{ url_for('login', port_id = 2) }}">
                 Login
             </a>
         </div>
         {% else %}
         <div class="d-flex justify-content-center mt-3">
-            <a class="btn btn-success btn-sm" href="{{ url_for('create_note', port_id = 1) }}">
+            <a class="btn btn-success btn-sm" href="{{ url_for('create_note', port_id = 2) }}">
                 Create Comment
             </a>
         </div>

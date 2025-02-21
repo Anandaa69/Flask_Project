@@ -1,4 +1,493 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 {% block body %}
+
+<style>
+    body {
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+    }
+
+    .background {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        text-align: center;
+        margin-bottom: 60px;
+        width: 100%;
+        margin-top: 100px;
+        /* เพิ่มระยะห่างจาก navbar */
+    }
+
+    .container-fluid {
+        flex-grow: 1;
+    }
+
+    .info-title {
+        font-size: 50px;
+        /* ขนาดใหญ่ให้เด่น */
+        font-weight: bold;
+        color: #ff0055;
+        /* สีแดงชมพู */
+        text-align: center;
+        margin-bottom: 30px;
+        /* เพิ่มระยะห่างจากภาพ */
+        text-shadow: 5px 5px 15px rgba(255, 0, 85, 0.7);
+        /* เงาเพิ่มมิติ */
+    }
+
+    .image-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        /* กำหนดขนาดสูงสุด */
+        height: auto;
+    }
+
+    .image-container {
+        width: 100%;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
+        position: relative;
+        z-index: 1;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 30px;
+    }
+
+    .image-overlay {
+        position: absolute;
+        bottom: -50px;
+        right: -100px;
+        width: 550px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.5);
+        z-index: 2;
+    }
+
+    .image-overlay img {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+    }
+
+    .text-content {
+        display: flex;
+        flex-direction: column;
+        /* ให้ข้อความเรียงแนวตั้ง */
+        justify-content: center;
+        /* จัดแนวตั้ง */
+        align-items: center;
+        /* จัดแนวนอน */
+        margin-top: 15vh;
+        color: #890a0b;
+    }
+
+    .text-content h1 {
+        font-size: 64px;
+        font-weight: bold;
+    }
+
+    .text-content p {
+        font-size: 32px;
+    }
+
+    .info-section {
+        margin-top: 100px;
+        padding: 50px;
+        background-color: #590004;
+        border-radius: 15px;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+        width: 90%;
+        max-width: 1000px;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    .info-section img {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+    }
+
+    .info-section p {
+        font-size: 20px;
+        color: white;
+        text-align: center;
+        margin-top: 40px;
+        /* เพิ่มระยะห่างจาก Accuracy */
+    }
+
+    .image-container {
+        width: 100%;
+        border-radius: 30px;
+        overflow: visible;
+        /* อนุญาตให้ป้ายหัวข้อออกมานอกกรอบ */
+        position: relative;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
+        z-index: 1;
+    }
+
+    .image-title {
+        position: absolute;
+        top: -40px;
+        /* ปรับให้ป้ายออกมานอกกรอบภาพหลัก */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 350px;
+        z-index: 2;
+    }
+
+    .image-title img {
+        width: 100%;
+        height: auto;
+    }
+
+    .accuracy-percentage {
+        font-size: 100px;
+        /* ขนาดใหญ่สุด */
+        font-weight: bold;
+        color: #ff0055;
+        /* สีแดงชมพู */
+        text-align: center;
+        margin-top: 50px;
+        /* เพิ่มระยะห่างจากภาพ */
+        text-shadow: 5px 5px 15px rgba(255, 0, 85, 0.7);
+        /* เงาให้ดูมีมิติ */
+    }
+
+    .accuracy-text {
+        font-size: 36px;
+        /* ขนาดรองลงมา */
+        font-weight: bold;
+        color: #ff3366;
+        /* โทนแดงชมพู */
+        text-align: center;
+        margin-top: 10px;
+        /* เว้นระยะจากตัวเลข */
+        text-shadow: 3px 3px 10px rgba(255, 51, 102, 0.7);
+    }
+
+    .machine-learning-title {
+        font-size: 2.5em;
+        color: #FFB84D;
+        /* สีทองอมส้ม */
+        font-weight: bold;
+        text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        margin-top: 20px;
+        text-align: center;
+        letter-spacing: 2px;
+        background: linear-gradient(45deg, #FFB84D, #FF6347);
+        /* สีไล่ระดับ */
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .machine-learning-title:hover {
+        color: #FFF;
+        transform: scale(1.05);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* สำหรับ hover บนบล็อค .info-section */
+    .info-section:hover {
+        transform: translateY(-10px);
+        /* เคลื่อนที่เล็กน้อย */
+        box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.4);
+        /* เพิ่มเงาให้โดดเด่น */
+        transition: all 0.3s ease;
+        /* ทำให้การเคลื่อนไหวเรียบเนียน */
+    }
+
+    /* สำหรับ hover บนตัวเลข Accuracy */
+    .accuracy-percentage:hover {
+        color: #FF6347;
+        /* เปลี่ยนสีเมื่อ hover */
+        transform: scale(1.1);
+        /* ขยายตัวเลขเมื่อ hover */
+        text-shadow: 5px 5px 15px rgba(255, 99, 71, 0.7);
+        /* เพิ่มเงา */
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* สำหรับ hover บนข้อความ Accuracy */
+    .accuracy-text:hover {
+        color: #FF66A1;
+        /* เปลี่ยนสีเมื่อ hover */
+        text-shadow: 3px 3px 10px rgba(255, 102, 161, 0.7);
+        /* เพิ่มเงา */
+        transition: color 0.3s ease-in-out;
+    }
+
+    footer {
+        width: 100%;
+        background-color: #590004;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        margin-top: auto;
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 1200px) {
+        .text-content h1 {
+            font-size: 48px;
+            /* ลดขนาดหัวข้อบนจอใหญ่ */
+        }
+
+        .text-content p {
+            font-size: 28px;
+            /* ลดขนาดข้อความบนจอใหญ่ */
+        }
+
+        .image-wrapper {
+            width: 90%;
+            /* ลดขนาดภาพ */
+        }
+
+        .info-section {
+            padding: 40px;
+            /* ลด padding ในบล็อค */
+        }
+
+        .info-section p {
+            font-size: 24px;
+            /* ลดขนาดข้อความในบล็อค */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .text-content h1 {
+            font-size: 36px;
+            /* ลดขนาดหัวข้อบน tablet */
+        }
+
+        .text-content p {
+            font-size: 24px;
+            /* ลดขนาดข้อความบน tablet */
+        }
+
+        .image-wrapper {
+            width: 100%;
+            /* ให้ภาพเต็มจอ */
+            max-width: none;
+        }
+
+        .info-section {
+            padding: 30px;
+            /* ลด padding บน tablet */
+        }
+
+        .info-section p {
+            font-size: 22px;
+            /* ลดขนาดข้อความในบล็อคบน tablet */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .text-content h1 {
+            font-size: 28px;
+            /* ลดขนาดหัวข้อบนมือถือ */
+        }
+
+        .text-content p {
+            font-size: 20px;
+            /* ลดขนาดข้อความบนมือถือ */
+        }
+
+        .image-wrapper {
+            width: 100%;
+            /* ให้ภาพเต็มจอ */
+            max-width: none;
+        }
+
+        .info-section {
+            padding: 20px;
+            /* ลด padding บนมือถือ */
+        }
+
+        .info-section p {
+            font-size: 18px;
+            /* ลดขนาดข้อความในบล็อคบนมือถือ */
+        }
+    }
+
+</style>
+
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="background">
+        <div class="image-wrapper">
+            <div class="image-container">
+                <img src="static/images/port3/D2.png" alt="Main Image">
+            </div>
+            <div class="image-overlay">
+                <img src="static/images/port3/C1.png" alt="Overlay Image">
+            </div>
+        </div>
+
+        <div class="text-content">
+            <h1 style="font-size: 100px;">"COCA-COLA 3D" & "DONUT"</h1>
+            <h2 class="machine-learning-title" style="width: 600px; align-items: center;">Blender Project
+            </h2>
+        </div>
+
+        <div class="info-section">
+            <h1 class="info-title">"COCA-COLA 3D"</h1>
+            <div class="image-container">
+                <img src="static/images/port3/C1.png" alt="Additional Image">
+            </div>
+            <div class="image-container" style="margin-top: 30px;">
+                <img src="static/images/port3/C2.png" alt="Additional Image">
+            </div>
+            <div class="image-container" style="margin-top: 30px;">
+                <img src="static/images/port3/C3.png" alt="Additional Image">
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h1 class="info-title">"DONUT"</h1>
+            <div class="image-container">
+                <img src="static/images/port3/D1.png" alt="Additional Image">
+            </div>
+            <div class="image-container" style="margin-top: 30px;">
+                <img src="static/images/port3/D2.png" alt="Additional Image">
+            </div>
+        </div>
+
+        <!-- Google Drive Icon and Link without card, larger size and hover effect -->
+
+        <div class="google-drive-section">
+            <!-- Google Drive Icon (increased size) -->
+            <a href="https://github.com">
+                <img src="static/images/Google-Drive-Logo.png" alt="Google Drive" class="google-drive-icon">
+            </a>
+            <!-- Link to Google Drive -->
+            <a href="https://drive.google.com" target="_blank" class="google-drive-text">
+                File Link
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Google Drive Section without card styling */
+    .google-drive-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+        background-color: #eeeeee;
+        border-radius: 15px; /* Rounded corners */
+        padding: 20px;
+        text-align: center;
+        width: 300px; /* Adjust width */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+        text-decoration: none;
+        /* Increased top margin */
+    }
+
+    /* Google Drive Icon - Increase size further */
+    .google-drive-icon {
+        width: 250px;
+        /* Increased size */
+        height: auto;
+        transition: transform 0.3s ease;
+        /* Animation on hover */
+    }
+
+    /* Google Drive Text - Increase size further */
+    .google-drive-text {
+        font-size: 48px;
+        /* Larger text */
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        margin-top: 30px;
+        /* Spacing between icon and text */
+        transition: color 0.3s, transform 0.3s;
+        /* Animation on hover */
+    }
+
+    /* Hover effect for Google Drive icon */
+    .google-drive-icon:hover {
+        transform: scale(1.1);
+        /* Slightly enlarge the icon on hover */
+    }
+
+    /* Hover effect for Google Drive link */
+    .google-drive-text:hover {
+        color: rgb(6, 150, 61);
+        /* Darker green on hover */
+        transform: scale(1.1);
+        /* Slightly enlarge the text on hover */
+    }
+</style>
+
+<ul class="nav justify-content-center" style="padding-top: 1em;">
+    <li class="nav-item">
+        {% if not current_user.is_authenticated %}
+        <h2 class="text-center text-primary">Login to comment</h2>
+        <div class="d-flex justify-content-center mt-3">
+            <a class="btn btn-primary btn-sm" href="{{ url_for('login', port_id = 3) }}">
+                Login
+            </a>
+        </div>
+        {% else %}
+        <div class="d-flex justify-content-center mt-3">
+            <a class="btn btn-success btn-sm" href="{{ url_for('create_note', port_id = 3) }}">
+                Create Comment
+            </a>
+        </div>
+        {% endif %}
+    </li>
+</ul>
+
+{% for note in notes %}
+{% if note.portfolio_id == 3 %}
+<div class="card my-3 shadow-sm" style="border-radius: 8px; max-width: 700px; margin: auto;">
+    <div class="card-body">
+        <h5 class="card-title text-info">{{ note.title }}</h5>
+        <p class="card-text my-2" style="font-size: 0.9em;">
+            {{ note.description }}
+        </p>
+        <div class="card-footer text-muted d-flex justify-content-between">
+            <div>
+                Tags:
+                {% for t in note.tags %}
+                <a class="badge bg-primary text-light me-2" href="{{ url_for('tags_view', tag_name=t.name) }}">
+                    {{ t.name }}
+                </a>
+                {% endfor %}
+            </div>
+            {% if current_user.is_authenticated and current_user.has_role("admin") %}
+            <div>
+                <a href="{{ url_for('update_note', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit</a>
+                <a href="{{ url_for('update_tags', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
+                <a href="{{ url_for('delete_note', tag_id=t.id) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
+                <a href="{{ url_for('delete_tags', tag_id=t.id) }}" class="btn btn-danger btn-sm">Delete Tags</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="mt-2 text-muted text-end" style="font-size: 0.8em;">
+            Last Updated: {{ note.update_date }}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
 
 {% endblock %}
