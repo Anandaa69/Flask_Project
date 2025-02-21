@@ -47,8 +47,8 @@
 </head>
 
 <body class="d-flex flex-column" style="min-height: 100vh;">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-        <div class="container-fluid " style="background-color: #890a0b;">
+    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #890a0b;">
+        <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('main')}}">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,9 +77,9 @@
                 <div class="d-flex ms-auto">
                     <span class="navbar-text">
                         {% if current_user.is_authenticated %}
-                        <div class="d-flex flex-column align-items-start w-100" ">
+                        <div class="d-flex flex-column align-items-start w-100">
                             <span style="color: #eeeeee">{{ current_user.username }}</span>
-                            <a class=" nav-link mt-auto align-self-center" href="{{ url_for('logout') }}" style="color: #999999">logout</a>
+                            <a class="nav-link mt-auto align-self-center" href="{{ url_for('logout') }}" style="color: #999999">logout</a>
                         </div>
                         {% else %}
                         <a class="nav-link" href="{{ url_for('register') }}" style="color: #eeeeee">sign in</a>
@@ -89,6 +89,7 @@
             </div>
         </div>
     </nav>
+    
     <div class="flex-grow-1">
         {% block body %}
         Default template

@@ -1,60 +1,559 @@
 {% extends 'base.html'%}
 {% block body %}
 
+<style>
+    body {
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+    }
+
+    .background {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        text-align: center;
+        margin-bottom: 60px;
+        width: 100%;
+        margin-top: 100px;
+        /* เพิ่มระยะห่างจาก navbar */
+    }
+
+    .container-fluid {
+        flex-grow: 1;
+    }
+
+    .info-title {
+        font-size: 50px;
+        /* ขนาดใหญ่ให้เด่น */
+        font-weight: bold;
+        color: #ff0055;
+        /* สีแดงชมพู */
+        text-align: center;
+        margin-top: 40px;
+        /* เพิ่มระยะห่างจากภาพ */
+        text-shadow: 5px 5px 15px rgba(255, 0, 85, 0.7);
+        /* เงาเพิ่มมิติ */
+    }
+
+    .image-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        /* กำหนดขนาดสูงสุด */
+        height: auto;
+    }
+
+    .image-container {
+        width: 100%;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
+        position: relative;
+        z-index: 1;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 30px;
+    }
+
+    .image-overlay {
+        position: absolute;
+        bottom: -50px;
+        right: -100px;
+        width: 550px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.5);
+        z-index: 2;
+    }
+
+    .image-overlay img {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+    }
+
+    .text-content {
+        display: flex;
+        flex-direction: column;
+        /* ให้ข้อความเรียงแนวตั้ง */
+        justify-content: center;
+        /* จัดแนวตั้ง */
+        align-items: center;
+        /* จัดแนวนอน */
+        margin-top: 15vh;
+        color: #890a0b;
+    }
+
+    .text-content h1 {
+        font-size: 64px;
+        font-weight: bold;
+    }
+
+    .text-content p {
+        font-size: 32px;
+    }
+
+    .info-section {
+        margin-top: 100px;
+        padding: 50px;
+        background-color: #590004;
+        border-radius: 15px;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+        width: 90%;
+        max-width: 1000px;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    .info-section img {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+    }
+
+    .info-section p {
+        font-size: 20px;
+        color: white;
+        text-align: center;
+        margin-top: 40px;
+        /* เพิ่มระยะห่างจาก Accuracy */
+    }
+
+    .image-container {
+        width: 100%;
+        border-radius: 30px;
+        overflow: visible;
+        /* อนุญาตให้ป้ายหัวข้อออกมานอกกรอบ */
+        position: relative;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.4);
+        z-index: 1;
+    }
+
+    .image-title {
+        position: absolute;
+        top: -40px;
+        /* ปรับให้ป้ายออกมานอกกรอบภาพหลัก */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 350px;
+        z-index: 2;
+    }
+
+    .image-title img {
+        width: 100%;
+        height: auto;
+    }
+
+    .accuracy-percentage {
+        font-size: 100px;
+        /* ขนาดใหญ่สุด */
+        font-weight: bold;
+        color: #ff0055;
+        /* สีแดงชมพู */
+        text-align: center;
+        margin-top: 50px;
+        /* เพิ่มระยะห่างจากภาพ */
+        text-shadow: 5px 5px 15px rgba(255, 0, 85, 0.7);
+        /* เงาให้ดูมีมิติ */
+    }
+
+    .accuracy-text {
+        font-size: 36px;
+        /* ขนาดรองลงมา */
+        font-weight: bold;
+        color: #ff3366;
+        /* โทนแดงชมพู */
+        text-align: center;
+        margin-top: 10px;
+        /* เว้นระยะจากตัวเลข */
+        text-shadow: 3px 3px 10px rgba(255, 51, 102, 0.7);
+    }
+
+    .machine-learning-title {
+        font-size: 2.5em;
+        color: #FFB84D;
+        /* สีทองอมส้ม */
+        font-weight: bold;
+        text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        margin-top: 20px;
+        text-align: center;
+        letter-spacing: 2px;
+        background: linear-gradient(45deg, #FFB84D, #FF6347);
+        /* สีไล่ระดับ */
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .machine-learning-title:hover {
+        color: #FFF;
+        transform: scale(1.05);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* สำหรับ hover บนบล็อค .info-section */
+    .info-section:hover {
+        transform: translateY(-10px);
+        /* เคลื่อนที่เล็กน้อย */
+        box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.4);
+        /* เพิ่มเงาให้โดดเด่น */
+        transition: all 0.3s ease;
+        /* ทำให้การเคลื่อนไหวเรียบเนียน */
+    }
+
+    /* สำหรับ hover บนตัวเลข Accuracy */
+    .accuracy-percentage:hover {
+        color: #FF6347;
+        /* เปลี่ยนสีเมื่อ hover */
+        transform: scale(1.1);
+        /* ขยายตัวเลขเมื่อ hover */
+        text-shadow: 5px 5px 15px rgba(255, 99, 71, 0.7);
+        /* เพิ่มเงา */
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* สำหรับ hover บนข้อความ Accuracy */
+    .accuracy-text:hover {
+        color: #FF66A1;
+        /* เปลี่ยนสีเมื่อ hover */
+        text-shadow: 3px 3px 10px rgba(255, 102, 161, 0.7);
+        /* เพิ่มเงา */
+        transition: color 0.3s ease-in-out;
+    }
+
+    footer {
+        width: 100%;
+        background-color: #590004;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        margin-top: auto;
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 1200px) {
+        .text-content h1 {
+            font-size: 48px;
+            /* ลดขนาดหัวข้อบนจอใหญ่ */
+        }
+
+        .text-content p {
+            font-size: 28px;
+            /* ลดขนาดข้อความบนจอใหญ่ */
+        }
+
+        .image-wrapper {
+            width: 90%;
+            /* ลดขนาดภาพ */
+        }
+
+        .info-section {
+            padding: 40px;
+            /* ลด padding ในบล็อค */
+        }
+
+        .info-section p {
+            font-size: 24px;
+            /* ลดขนาดข้อความในบล็อค */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .text-content h1 {
+            font-size: 36px;
+            /* ลดขนาดหัวข้อบน tablet */
+        }
+
+        .text-content p {
+            font-size: 24px;
+            /* ลดขนาดข้อความบน tablet */
+        }
+
+        .image-wrapper {
+            width: 100%;
+            /* ให้ภาพเต็มจอ */
+            max-width: none;
+        }
+
+        .info-section {
+            padding: 30px;
+            /* ลด padding บน tablet */
+        }
+
+        .info-section p {
+            font-size: 22px;
+            /* ลดขนาดข้อความในบล็อคบน tablet */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .text-content h1 {
+            font-size: 28px;
+            /* ลดขนาดหัวข้อบนมือถือ */
+        }
+
+        .text-content p {
+            font-size: 20px;
+            /* ลดขนาดข้อความบนมือถือ */
+        }
+
+        .image-wrapper {
+            width: 100%;
+            /* ให้ภาพเต็มจอ */
+            max-width: none;
+        }
+
+        .info-section {
+            padding: 20px;
+            /* ลด padding บนมือถือ */
+        }
+
+        .info-section p {
+            font-size: 18px;
+            /* ลดขนาดข้อความในบล็อคบนมือถือ */
+        }
+    }
+
+    }
+
+    h2 {
+        color: #f39c12;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        display: inline-block;
+        text-align: left;
+    }
+
+    li {
+        margin: 10px 0;
+        font-size: 18px;
+    }
+
+    .gun {
+        font-weight: bold;
+        color: #e74c3c;
+    }
+</style>
+
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="background">
+        <div class="image-wrapper">
+            <div class="image-container">
+                <img src="static/images/port2/1.png" alt="Main Image">
+            </div>
+            <div class="image-overlay">
+                <img src="static/images/port2/4.png" alt="Overlay Image">
+            </div>
+        </div>
+
+        <div class="text-content">
+            <h1 style="font-size: 100px;">Watch Out! Engineer</h1>
+            <h2 class="machine-learning-title" style="width: 600px; align-items: center;">Kivy & Python Game Project
+            </h2>
+        </div>
+
+        <div class="info-section">
+            <div class="image-container">
+                <img src="static/images/port2/4.png" alt="Additional Image">
+            </div>
+            <h1 class="info-title">Watch Out! Engineer</h1>
+            <p>เป็นเกมแนว shooting มุมมอง bird eyes view ที่ผู้เล่นต้องต่อสู้กับซอมบี้ โดยผู้เล่นต้องบริหารทรัพยากรอย่าง
+                พลังชีวิต ยา กระสุน ให้ดี โดยจุดประสงค์ของเกมต้องจัดการซอมบี้ในแต่ละ WAVE ไปเรื่อยๆจนกว่าเราจะไม่ไหว
+                โดยในแต่ละ WAVE นั้นซอมบี้ความเก่งจะเพิ่มขึ้น</p>
+            <p>It is a bird's-eye view shooting game where players must fight against zombies. Players need to manage
+                their resources, such as health, medicine, and ammunition, wisely. The goal of the game is to survive
+                and eliminate zombies in each wave, continuing as long as they can endure. With each wave, the zombies
+                become stronger.</p>
+        </div>
+
+        <div class="info-section">
+            <div class="image-container">
+                <img src="static/images/port2/5.png" alt="Additional Image">
+            </div>
+            <h1 class="info-title">Overview</h1>
+            <p>
+                เมื่อเข้าสู่โปรแกรมจะอยู่ที่หน้าหลักของเกม โดยในหน้าหลักจะสามารถปรับตั้งค่าเสียงได้ โดยมีให้ปรับ 2
+                แบบคือ Music และ SFX โดยเสียง SFX จะสามารถกดเพื่อทดสอบเสียงเอฟเฟคได้ และจะมีอยู่ 2 ปุ่มกดคือ Play และ
+                Exit เมื่อเรากดเล่น (Play) จะทำการเข้าสู่หน้าเกม โดยผู้เล่นสามารถใช้ปุ่ม W, A, S, D ในการเดิน J, K
+                เพื่อนหมุนซ้ายขวา กด H เพื่อรักษา (ต้องมีไอเทม Heal) กด Space bar เพื่อยิงปืน และสามารถกด 1, 2
+                เพื่อสลับปืนได้ โดยปืนในเกมจะมี 2 ประเภทคือ Shotgun ปืนนี้จะมีกระสุนที่จำกัด และปืน Pistol
+                ปืนนี้จะมีกระสุนไม่จำกัดแต่ความเสียหายต่อซอมบี้นั้นน้อยมากๆ ต้องยิงซอบบี้โดน 10 นัดจึงจะจัดการได้
+                โดยในตอนเริ่มเกมนั้นจะยังไม่มีซอมบี้บุกมา ซึ่งช่วงนี้ก็คือช่วงพักระหว่าง WAVE โดยในตอนเริ่มเกมนั้นคือ
+                WAVE0 โดยในช่วงพักผู้เล่นสามารถซื้อของได้ โดยพ่อค้าจะปรากฎตัวออกมาให้เห็น
+                เมื่อเราเดินเข้าไปชนกับพ่อค้าจะปรากฎปุ่มขึ้นมาโดยให้ใช้ เมาส์กด แล้วจะมีหน้าต่างขึ้นมา
+                ให้เราสามารถอัพพลังชีวิตและความเร็วของผู้เล่นได้ในราคา 20 บาท โดยเงินจะได้จากการจัดการซอมบี้
+                และสามารถซื้อกระสุนกับยา ได้ในราคา 10 บาท โดยการที่เราจะเริ่ม WAVE นั้นต้องเดินไปชนกับ
+                โน๊ตบุ๊คสีแดงตรงกลางแมพ ซึ่งจะปรากฎปุ่มขึ้นมาให้กดเริ่ม WAVE
+                จากนั้นซอมบี้ก็จะแห่กันอออกมาจากรอบแมพมาหาผู้เล่น โดยซอมบี้เมื่อจัดการได้จะมีโอกาส 50% ที่จะดรอป item
+                เป็น กระสุนปืน และ ยา เมื่อจัดการกับซอมบี้จนหมดเวฟแล้วจะเข้าสู้ช่วงพัก และเตรียมเข้าสู่ WAVE
+                ต่อไปที่ซอมบี้จะเก่งมากขึ้น!
+            </p>
+            <h1 class="info-title">Game Flow</h1>
+            <p>When entering the game, players will start on the main menu. From there, they can adjust sound settings,
+                with two adjustable options: Music and SFX. The SFX setting includes a button to test sound effects. The
+                main menu has two buttons: Play and Exit.</p>
+            <h2 class="info-title">Gameplay</h2>
+            <p>Upon pressing <strong>Play</strong>, the game starts. Players can control their character using the
+                following keys:</p>
+
+            <ul style="color: #eeeeee">
+                <li><strong>W, A, S, D</strong> – Move</li>
+                <li><strong>J, K</strong> – Rotate left/right</li>
+                <li><strong>H</strong> – Heal (requires a Heal item)</li>
+                <li><strong>Spacebar</strong> – Shoot</li>
+                <li><strong>1, 2</strong> – Switch weapons</li>
+            </ul>
+
+            <h2 class="info-title">Weapons</h2>
+            <ul style="color: #eeeeee">
+                <li>Shotgun – Limited ammo</li>
+                <li>Pistol – Unlimited ammo but very low damage (requires 10 shots to kill a zombie)</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <div class="image-container">
+                <img src="static/images/port2/2.png" alt="Additional Image">
+            </div>
+            <div class="image-container" style="margin-top: 30px;">
+                <img src="static/images/port2/1.png" alt="Additional Image" href="https://drive.google.com">
+            </div>
+        </div>
+
+        <!-- Google Drive Icon and Link without card, larger size and hover effect -->
+
+        <div class="google-drive-section">
+            <!-- Google Drive Icon (increased size) -->
+            <a href="https://github.com">
+                <img src="static/images/github.png" alt="Google Drive" class="google-drive-icon">
+            </a>
+            <!-- Link to Google Drive -->
+            <a href="https://drive.google.com" target="_blank" class="google-drive-text">
+                Git Link
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Google Drive Section without card styling */
+    .google-drive-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+        background-color: #eeeeee;
+        border-radius: 15px; /* Rounded corners */
+        padding: 20px;
+        text-align: center;
+        width: 300px; /* Adjust width */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+        text-decoration: none;
+        /* Increased top margin */
+    }
+
+    /* Google Drive Icon - Increase size further */
+    .google-drive-icon {
+        width: 250px;
+        /* Increased size */
+        height: auto;
+        transition: transform 0.3s ease;
+        /* Animation on hover */
+    }
+
+    /* Google Drive Text - Increase size further */
+    .google-drive-text {
+        font-size: 48px;
+        /* Larger text */
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        margin-top: 30px;
+        /* Spacing between icon and text */
+        transition: color 0.3s, transform 0.3s;
+        /* Animation on hover */
+    }
+
+    /* Hover effect for Google Drive icon */
+    .google-drive-icon:hover {
+        transform: scale(1.1);
+        /* Slightly enlarge the icon on hover */
+    }
+
+    /* Hover effect for Google Drive link */
+    .google-drive-text:hover {
+        color: red;
+        /* Darker green on hover */
+        transform: scale(1.1);
+        /* Slightly enlarge the text on hover */
+    }
+</style>
+
 <ul class="nav justify-content-center" style="padding-top: 1em;">
     <li class="nav-item">
         {% if not current_user.is_authenticated %}
-            <h2>Login to comments</h2>
-            <div class="d-flex justify-content-center">
-                <a class="btn btn-primary " href="{{ url_for('login', port_id = 2)}}">
-                    Login
-                </a>
-            </div>
-        {% else %}
-            <a class="btn btn-primary" href="{{ url_for('create_note', port_id = 2) }}">
-                Create
+        <h2 class="text-center text-primary">Login to comment</h2>
+        <div class="d-flex justify-content-center mt-3">
+            <a class="btn btn-primary btn-sm" href="{{ url_for('login', port_id = 1) }}">
+                Login
             </a>
+        </div>
+        {% else %}
+        <div class="d-flex justify-content-center mt-3">
+            <a class="btn btn-success btn-sm" href="{{ url_for('create_note', port_id = 1) }}">
+                Create Comment
+            </a>
+        </div>
         {% endif %}
     </li>
 </ul>
 
 {% for note in notes %}
 {% if note.portfolio_id == 2 %}
-    <h1>port = {{ note.portfolio_id }}</h1>
-    <div class="card my-3">
-        <div class="card-body">
-            <h4 class="card-title">{{ note.title }}</h4>
-            <div class="card-text my-3">
-                {{ note.description }}
-            </div>
-            <div class="card-footer text-muted">
+<div class="card my-3 shadow-sm" style="border-radius: 8px; max-width: 700px; margin: auto;">
+    <div class="card-body">
+        <h5 class="card-title text-info">{{ note.title }}</h5>
+        <p class="card-text my-2" style="font-size: 0.9em;">
+            {{ note.description }}
+        </p>
+        <div class="card-footer text-muted d-flex justify-content-between">
+            <div>
                 Tags:
                 {% for t in note.tags %}
-                    <a href="{{ url_for('tags_view', tag_name=t.name) }}">
-                        {{t.name}}
-                    </a>
-                {% if current_user.is_authenticated and current_user.has_role("admin") %}
-                    <div>
-                        <a href="{{ url_for('update_note', tag_id=t.id) }}">edit note</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for('update_tags', tag_id=t.id) }}">edit tags</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for('delete_note', tag_id=t.id) }}">delete note</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for('delete_tags', tag_id=t.id) }}">delete tags</a>
-                    </div>
-                    <div>
-                        <a href="{{ url_for('delete', tag_id=t.id) }}">delete all</a>
-                    </div>
-                {% endif %}
+                <a class="badge bg-primary text-light me-2" href="{{ url_for('tags_view', tag_name=t.name) }}">
+                    {{ t.name }}
+                </a>
                 {% endfor %}
-                Last Update: {{ note.update_date }}
             </div>
+            {% if current_user.is_authenticated and current_user.has_role("admin") %}
+            <div>
+                <a href="{{ url_for('update_note', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit</a>
+                <a href="{{ url_for('update_tags', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
+                <a href="{{ url_for('delete_note', tag_id=t.id) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
+                <a href="{{ url_for('delete_tags', tag_id=t.id) }}" class="btn btn-danger btn-sm">Delete Tags</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="mt-2 text-muted text-end" style="font-size: 0.8em;">
+            Last Updated: {{ note.update_date }}
         </div>
     </div>
+</div>
 {% endif %}
 {% endfor %}
 
