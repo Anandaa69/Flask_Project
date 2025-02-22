@@ -170,7 +170,7 @@ def delete_tags(tag_id):
 
 @app.route("/notes/create_note", methods=["GET", "POST"])
 def create_note():
-    port_id = flask.request.args.get('port_id')  # ดึงค่า port_id จาก query string
+    port_id = flask.request.args.get('port_id')  # Get port_id from the query string
     form = forms.NoteForm()
 
     if not form.validate_on_submit():
@@ -181,12 +181,20 @@ def create_note():
             port_id=port_id
         )
 
+    # Create a new Note object
     note = models.Note()
     form.populate_obj(note)
     note.tags = []
 
-    # ตั้งค่า portfolio_id ให้เป็น port_id ที่ส่งเข้ามา
+    # Set the portfolio_id from the query string
     note.portfolio_id = port_id
+
+    # Set the user_id from the current logged-in user
+    if current_user.is_authenticated:
+        note.user_id = current_user.id
+    else:
+        # Handle case when the user is not authenticated (e.g., redirect or error)
+        return flask.redirect(flask.url_for('login'))  # Assuming you have a login route
 
     db = models.db
     for tag_name in form.tags.data:
@@ -206,6 +214,7 @@ def create_note():
     db.session.commit()
 
     return flask.redirect(flask.url_for(f"port_{port_id}"))
+
 
 @app.route("/tags/<tag_id>/update_note", methods=["GET", "POST"])
 def update_note(tag_id):

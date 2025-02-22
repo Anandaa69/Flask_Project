@@ -74,12 +74,12 @@ class User(db.Model, UserMixin):
     def has_role(self, role_name):
         return any(role.name == role_name for role in self.roles)
 
+
 # Database
 note_tag_m2m = db.Table(
-    "note_tag_port",
+    "note_tag",
     sa.Column("note_id", sa.ForeignKey("notes.id"), primary_key=True),
     sa.Column("tag_id", sa.ForeignKey("tags.id"), primary_key=True),
-    sa.Column("portfolio_id", sa.Integer),
 )
 
 class Tag(db.Model):
@@ -104,6 +104,5 @@ class Note(db.Model):
 
     # Adding portfolio_id without linking it to any other table
     portfolio_id: Mapped[int] = mapped_column(sa.Integer, nullable=True)
-
-
+    user_id: Mapped[int] = mapped_column(sa.Integer, sa.ForeignKey('users.id'), nullable=False)
 
