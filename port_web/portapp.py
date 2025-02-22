@@ -9,85 +9,102 @@ from models import db, User, Note
 app = flask.Flask(__name__)
 
 app.config["SECRET_KEY"] = "This is secret key"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db" 
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
 models.init_app(app)
 
 
-@app.route('/manage_account')
+@app.route("/manage_account")
 @login_required  # Make sure user is logged in to access this page
 def manage_account():
     # Fetch the user's data from the database
     user = User.query.get(current_user.id)  # Get the current logged-in user
-    notes = Note.query.filter_by(user_id=user.id).all()  # Get all notes created by this user
-    return render_template('manage_account.html', user=user, notes=notes)
+    db = models.db
+    notes = db.session.execute(
+        db.select(models.Note).order_by(models.Note.title)
+    ).scalars()
+    return render_template("manage_account.html", user=user, notes=notes)
 
 
 @app.route("/about_me")
 def about_me():
     return flask.render_template("about_me.html")
 
+
 @app.route("/")
 def main():
     return flask.render_template("main.html")
+
 
 @app.route("/ports")
 def ports():
     return flask.render_template("ports.html")
 
+
 @app.route("/port_1")
 def port_1():
     db = models.db
-    notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
+    notes = db.session.execute(
+        db.select(models.Note).order_by(models.Note.title)
+    ).scalars()
     return flask.render_template("port_1.html", notes=notes)
+
 
 @app.route("/port_2")
 def port_2():
     db = models.db
-    notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
+    notes = db.session.execute(
+        db.select(models.Note).order_by(models.Note.title)
+    ).scalars()
     return flask.render_template("port_2.html", notes=notes)
+
 
 @app.route("/port_3")
 def port_3():
     db = models.db
-    notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
+    notes = db.session.execute(
+        db.select(models.Note).order_by(models.Note.title)
+    ).scalars()
     return flask.render_template("port_3.html", notes=notes)
+
 
 @app.route("/port_4")
 def port_4():
     db = models.db
-    notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
+    notes = db.session.execute(
+        db.select(models.Note).order_by(models.Note.title)
+    ).scalars()
     return flask.render_template("port_4.html", notes=notes)
 
-@app.route("/login", methods=["GET","POST"])
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
 
     # ถ้าผู้ใช้ล็อกอินแล้ว, เปลี่ยนเส้นทางไปหน้า index
     if current_user.is_authenticated:
-        return flask.redirect(flask.url_for('main'))
-    
+        return flask.redirect(flask.url_for("main"))
+
     form = forms.LoginForm()
     if not form.validate_on_submit():
-        return flask.render_template(
-            "login.html",
-            form=form
-        )
-    
+        return flask.render_template("login.html", form=form)
+
     user = models.User.query.filter_by(username=form.username.data).first()
 
     if user and user.authenticate(form.password.data):
         login_user(user)
         return flask.redirect(flask.url_for("main"))
-    
+
     return flask.redirect(flask.url_for("login", error="Invalud username or password"))
-    
+
+
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return flask.redirect(flask.url_for("main"))
 
-@app.route("/register", methods=["GET","POST"])
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
     form = forms.RegisterForm()
     if not form.validate_on_submit():
@@ -110,7 +127,9 @@ def register():
 
     return flask.redirect(flask.url_for("login"))
 
-#TAGS AND NOTES
+
+# TAGS AND NOTES
+
 
 @app.route("/tags/<tag_views>")
 def tags_view(tag_views):
@@ -133,13 +152,14 @@ def tags_view(tag_views):
         "tags_view.html",
         tag_views=tag_views,
         notes=notes,
-        tag=tag  # Make sure to pass the tag object to the template
+        tag=tag,  # Make sure to pass the tag object to the template
     )
 
 
 @app.route("/tags/<tag_id>/update_tags", methods=["GET", "POST"])
-def update_tags(tag_id): #แก้ไข Tags ได้
-    port_id = flask.request.args.get('port_id')
+def update_tags(tag_id):  # แก้ไข Tags ได้
+    port_id = flask.request.args.get("port_id")
+    next_page = flask.request.args.get("next_page")
     db = models.db
     tag = (
         db.session.execute(db.select(models.Tag).where(models.Tag.id == tag_id))
@@ -152,22 +172,23 @@ def update_tags(tag_id): #แก้ไข Tags ได้
 
     if not form.validate_on_submit():
         print(form.errors)
-        return flask.render_template(
-            "update_tags.html",
-            form=form,
-            form_name=form_name
-            )
+        return flask.render_template("update_tags.html", form=form, form_name=form_name)
 
     note = models.Note(id=tag_id)
     form.populate_obj(note)
     tag.name = form.name.data
     db.session.commit()
 
-    return flask.redirect(flask.url_for(f"port_{port_id}"))
+    if next_page:
+        return flask.redirect(flask.url_for("manage_account"))
+    elif port_id:
+        return flask.redirect(flask.url_for(f"port_{port_id}"))
+
 
 @app.route("/tags/<tag_id>/delete_tags", methods=["GET", "POST"])
 def delete_tags(tag_id):
-    port_id = flask.request.args.get('port_id')
+    port_id = flask.request.args.get("port_id")
+    next_page = flask.request.args.get("next_page")
     db = models.db
     tag = (
         db.session.execute(db.select(models.Tag).where(models.Tag.id == tag_id))
@@ -177,21 +198,20 @@ def delete_tags(tag_id):
 
     tag.name = ""
     db.session.commit()
+    if next_page:
+        return flask.redirect(flask.url_for("manage_account"))
+    elif port_id:
+        return flask.redirect(flask.url_for(f"port_{port_id}"))
 
-    return flask.redirect(flask.url_for(f"port_{port_id}"))
 
 @app.route("/notes/create_note", methods=["GET", "POST"])
 def create_note():
-    port_id = flask.request.args.get('port_id')  # Get port_id from the query string
+    port_id = flask.request.args.get("port_id")  # Get port_id from the query string
     form = forms.NoteForm()
 
     if not form.validate_on_submit():
         print("error", form.errors)
-        return flask.render_template(
-            "create_note.html",
-            form=form,
-            port_id=port_id
-        )
+        return flask.render_template("create_note.html", form=form, port_id=port_id)
 
     # Create a new Note object
     note = models.Note()
@@ -208,7 +228,7 @@ def create_note():
 
     else:
         # Handle case when the user is not authenticated (e.g., redirect or error)
-        return flask.redirect(flask.url_for('login'))  # Assuming you have a login route
+        return flask.redirect(flask.url_for("login"))  # Assuming you have a login route
 
     db = models.db
     for tag_name in form.tags.data:
@@ -232,13 +252,15 @@ def create_note():
 
 @app.route("/tags/<tag_id>/update_note", methods=["GET", "POST"])
 def update_note(tag_id):
-    port_id = flask.request.args.get('port_id')
+    port_id = flask.request.args.get("port_id")
+    next_page = flask.request.args.get("next_page")
     db = models.db
     notes = (
         db.session.execute(
-            db.select(models.Note).where(models.Note.tags.any(id=tag_id)))
-            .scalars()
-            .first()
+            db.select(models.Note).where(models.Note.tags.any(id=tag_id))
+        )
+        .scalars()
+        .first()
     )
 
     form = forms.NoteForm()
@@ -250,22 +272,27 @@ def update_note(tag_id):
             "update_note.html",
             form=form,
             form_title=form_title,
-            form_description=form_description
+            form_description=form_description,
         )
-    
+
     note = models.Note(id=tag_id)
     form.populate_obj(note)
     notes.description = form.description.data
     notes.title = form.title.data
     db.session.commit()
 
-    return flask.redirect(flask.url_for(f"port_{port_id}"))
+    if next_page:
+        return flask.redirect(flask.url_for("manage_account"))
+    elif port_id:
+        return flask.redirect(flask.url_for(f"port_{port_id}"))
+
 
 @app.route("/tags/<tag_id>/delete_note", methods=["GET", "POST"])
 def delete_note(tag_id):
-    port_id = flask.request.args.get('port_id')
+    port_id = flask.request.args.get("port_id")
+    next_page = flask.request.args.get("next_page")
     db = models.db
-    
+
     # ค้นหา Note ที่เกี่ยวข้องกับ tag_id
     notes = (
         db.session.execute(
@@ -281,23 +308,28 @@ def delete_note(tag_id):
 
     db.session.commit()
 
-    return flask.redirect(flask.url_for(f"port_{port_id}"))
+    if next_page:
+        return flask.redirect(flask.url_for("manage_account"))
+    elif port_id:
+        return flask.redirect(flask.url_for(f"port_{port_id}"))
 
-@app.route("/tags/<tag_id>/delete", methods=["GET", "POST"])
-def delete(tag_id):
-    db = models.db
 
-    notes = (
-        db.session.execute(
-            db.select(models.Note).where(models.Note.tags.any(id=tag_id))
-        )
-        .scalars()
-        .first()
-    )
+# @app.route("/tags/<tag_id>/delete", methods=["GET", "POST"])
+# def delete(tag_id):
+#     db = models.db
 
-    db.session.delete(notes)
-    db.session.commit()
-    return flask.redirect(flask.url_for("index"))
+#     notes = (
+#         db.session.execute(
+#             db.select(models.Note).where(models.Note.tags.any(id=tag_id))
+#         )
+#         .scalars()
+#         .first()
+#     )
+
+#     db.session.delete(notes)
+#     db.session.commit()
+#     return flask.redirect(flask.url_for("index"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

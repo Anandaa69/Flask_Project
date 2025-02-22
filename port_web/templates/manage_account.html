@@ -4,63 +4,130 @@
 
 {% block body %}
 <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f7fc;
+        color: #333;
+    }
+
     .account-info {
         background-color: #f8f9fa;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .account-info h3 {
+        font-size: 2em;
+        color: #5c6bc0;
+    }
+
+    .account-info p {
+        font-size: 1.1em;
+        color: #555;
     }
 
     .note-card {
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
+        background-color: #fff;
+        transition: transform 0.3s ease;
+    }
+
+    .note-card:hover {
+        transform: translateY(-5px);
     }
 
     .note-card .card-body {
-        padding: 15px;
+        padding: 25px;
     }
 
     .note-card .card-title {
-        font-size: 1.5em;
+        font-size: 1.7em;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .note-card .card-text {
+        font-size: 1.2em;
+        color: #666;
+        margin-bottom: 15px;
     }
 
     .note-card .card-footer {
         background-color: #f8f9fa;
         font-size: 0.9em;
-    }
-
-    .btn-sign-out {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        margin-top: 20px;
-    }
-
-    .btn-sign-out:hover {
-        background-color: #c82333;
+        color: #888;
     }
 
     .tag-list {
-        margin-top: 10px;
+        margin-top: 15px;
         font-size: 1em;
     }
 
     .tag-list a {
         text-decoration: none;
         color: #007bff;
-        padding: 5px 10px;
+        padding: 8px 15px;
         border: 1px solid #007bff;
-        border-radius: 5px;
-        margin-right: 5px;
+        border-radius: 20px;
+        margin-right: 10px;
+        transition: background-color 0.3s, color 0.3s;
     }
 
     .tag-list a:hover {
         background-color: #007bff;
         color: white;
+    }
+
+    .btn-action {
+        background-color: #f39c12;
+        color: white;
+        border-radius: 5px;
+        padding: 8px 15px;
+        margin-right: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-action:hover {
+        background-color: #e67e22;
+    }
+
+    .btn-delete {
+        background-color: #e74c3c;
+        color: white;
+        border-radius: 5px;
+        padding: 8px 15px;
+        margin-right: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-delete:hover {
+        background-color: #c0392b;
+    }
+
+    .btn-sign-out {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 1.2em;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-sign-out:hover {
+        background-color: #c0392b;
+    }
+
+    /* Center the logout button */
+    .logout-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
     }
 </style>
 
@@ -74,32 +141,44 @@
 
     <h4>Your Notes</h4>
     {% for note in notes %}
-        <div class="card note-card">
-            <div class="card-body">
-                <h5 class="card-title">{{ note.title }}</h5>
-                <p class="card-text">{{ note.description }}</p>
+    <div class="card note-card">
+        <div class="card-body">
+            <h5 class="card-title">{{ note.title }}</h5>
+            <p class="card-text">{{ note.description }}</p>
 
-                <!-- Display tags if available -->
-                {% if note.tags %}
-                    <div class="tag-list">
-                        Tags:
-                        {% for tag in note.tags %}
-                            <a href="{{ url_for('tags_view', tag_views=tag.name) }}">{{ tag.name }}</a>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <p>No tags available</p>
-                {% endif %}
+            <!-- Display tags if available -->
+            {% if note.tags %}
+            <div class="tag-list">
+                Tags:
+                {% for tag in note.tags %}
+                <a href="{{ url_for('tags_view', tag_views=tag.name) }}">{{ tag.name }}</a>
+                {% endfor %}
             </div>
-            <div class="card-footer text-muted">
-                Last updated: {{ note.update_date }}
+            {% else %}
+            <p>No tags available</p>
+            {% endif %}
+
+            <!-- Action buttons inside the note card -->
+            <div class="mt-3">
+                {% for t in note.tags %}
+                <a href="{{ url_for('update_note', tag_id=t.id, next_page = 1) }}" class="btn btn-action btn-sm me-2">Edit</a>
+                <a href="{{ url_for('update_tags', tag_id=t.id, next_page = 1) }}" class="btn btn-action btn-sm me-2">Edit Tags</a>
+                <a href="{{ url_for('delete_note', tag_id=t.id, next_page = 1) }}" class="btn btn-delete btn-sm me-2">Delete Note</a>
+                <a href="{{ url_for('delete_tags', tag_id=t.id, next_page = 1) }}" class="btn btn-delete btn-sm">Delete Tags</a>
+                {% endfor %}
             </div>
         </div>
+        <div class="card-footer text-muted">
+            Last updated: {{ note.update_date }}
+        </div>
+    </div>
     {% endfor %}
 
-    <!-- Sign Out Button -->
-    <a href="{{ url_for('logout') }}">
-        <button class="btn btn-sign-out">Sign Out</button>
-    </a>
+    <!-- Sign Out Button (centered) -->
+    <div class="logout-container">
+        <a href="{{ url_for('logout') }}" style="margin-bottom: 20px;">
+            <button class="btn btn-sign-out">Logout</button>
+        </a>
+    </div>
 </div>
 {% endblock %}
