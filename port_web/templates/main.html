@@ -122,13 +122,13 @@
     <!-- ปุ่ม Let's Start -->
     <!-- ปุ่ม Let's Start -->
     <div class="btn-container d-flex flex-column align-items-center gap-2">
-        <a class="btn btn-outline-light" href="{{ url_for('ports') }}" style="background-color: #005bd3; width: 150px;">
+        <a class="btn btn-outline-light" href="{{ url_for('ports') }}" style="background-color: #005bd3; width: 150px; margin-bottom: 30px">
             Let's Start
         </a>
         {% if not current_user.is_authenticated %}
         <div class="d-flex flex-column gap-2">
             <a href="{{ url_for('register') }}" class="btn btn-outline-light"
-                style="background-color: #005bd3; width: 150px;">
+                style="background-color: #005bd3; width: 150px; margin-bottom: 30px">
                 Sign In
             </a>
             <a href="{{ url_for('login') }}" class="btn btn-outline-light"
