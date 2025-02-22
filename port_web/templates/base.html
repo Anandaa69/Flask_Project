@@ -23,8 +23,8 @@
 
         /* ใช้ฟอนต์ที่กำหนด */
         body {
-            font-family: 'MyCustomFont', sans-serif;
             background-image: url('static/images/bg.png');
+            font-family: 'MyCustomFont', sans-serif;
             background-size: cover; /* ให้ภาพเต็มหน้าจอ */
             background-position: center; /* ให้ภาพอยู่กลาง */
             background-repeat: no-repeat; /* ห้ามซ้ำภาพ */
@@ -80,7 +80,7 @@
                         {% if current_user.is_authenticated %}
                         <div class="d-flex flex-column align-items-start w-100">
                             <span style="color: #eeeeee">{{ current_user.username }}</span>
-                            <a class="nav-link mt-auto align-self-center" href="{{ url_for('logout') }}" style="color: #999999">logout</a>
+                            <a class="nav-link mt-auto align-self-center" href="{{ url_for('manage_account') }}" style="color: #999999">account</a>
                         </div>
                         {% else %}
                         <a class="nav-link" href="{{ url_for('register') }}" style="color: #eeeeee">sign in</a>

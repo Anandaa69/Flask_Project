@@ -1,21 +1,101 @@
 {% extends 'base.html' %}
+
 {% block title %}Tag: {{ tag_views }} {% endblock %}
 
 {% block body %}
+<style>
+    /* เพิ่มพื้นหลังโปร่งใส */
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .nav {
+        margin-bottom: 30px;
+    }
+
+    .nav-item .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 20px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .tag-info {
+        font-size: 18px;
+        color: #555;
+        padding: 10px 20px;
+        border-radius: 25px;
+        background-color: #e0e0e0;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .tag-info span {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card-text {
+        font-size: 1.1em;
+        color: #555;
+    }
+
+    .card-footer {
+        background-color: #f8f9fa;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .card-footer a {
+        color: #007bff;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+
+    .card-footer a:hover {
+        text-decoration: underline;
+    }
+</style>
 
 <ul class="nav justify-content-center" style="padding-top: 1em;">
     <li class="nav-item">
         <a class="btn btn-primary" href="{{ url_for('main') }}">Home</a>
     </li>
-    <li class="nav-item">
-        <div class="btn btn-disabled">{{ tag_views }}</div>  <!-- Updated for clarity -->
-    </li>
 </ul>
+
+<!-- แสดง Tag ที่ไม่สามารถกดได้ -->
+<div class="tag-info" >
+    <span>Current Tag:</span> {{ tag_views }}
+</div>
 
 {% for note in notes %}
 <div class="card my-3">
     <div class="card-body">
-        <h4 class="card-title">{{ note.title }}</h4>  <!-- Fixed typo: card-tile → card-title -->
+        <h4 class="card-title">{{ note.title }}</h4>
         <div class="card-text my-3">
             {{ note.description }}
         </div>
@@ -26,6 +106,7 @@
                     {{ t.name }}
                 </a>
             {% endfor %}
+            <br>
             Last update: {{ note.update_date }}
         </div>
     </div>

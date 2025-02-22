@@ -2,9 +2,9 @@ import flask
 from models import models
 from forms import forms
 from auth import acl
-
 from flask_login import login_required, login_user, logout_user, current_user
-
+from flask import render_template, redirect, url_for
+from models import db, User, Note
 
 app = flask.Flask(__name__)
 
@@ -12,6 +12,16 @@ app.config["SECRET_KEY"] = "This is secret key"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db" 
 
 models.init_app(app)
+
+
+@app.route('/manage_account')
+@login_required  # Make sure user is logged in to access this page
+def manage_account():
+    # Fetch the user's data from the database
+    user = User.query.get(current_user.id)  # Get the current logged-in user
+    notes = Note.query.filter_by(user_id=user.id).all()  # Get all notes created by this user
+    return render_template('manage_account.html', user=user, notes=notes)
+
 
 @app.route("/about_me")
 def about_me():

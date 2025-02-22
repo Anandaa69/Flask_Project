@@ -1,15 +1,65 @@
 {% extends 'base.html' %}
+
 {% block body %}
+<style>
+    /* กำหนดพื้นหลังโปร่งใสและพื้นหลังของฟอร์ม */
+    body {
+        background-color: rgba(0, 0, 0, 0.05); /* พื้นหลังสีโปร่งใส */
+    }
 
-<h3 class="my-2">Update Tags</h3>
-<form action="" method="POST">
-    {{ form.hidden_tag() }}
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
 
-    <div class="form-group my-3">
-        {{ form.name.label }}
-        {{ form.name(class_='form-control',value=form_name) }}
+    .form-container {
+        background: rgba(255, 255, 255, 0.9); /* พื้นหลังโปร่งใสสีขาว */
+        border-radius: 15px; /* ขอบมน */
+        padding: 25px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* เงา */
+        margin-top: 40px;
+    }
+
+    h3 {
+        text-align: center;
+        color: #007bff;
+        margin-bottom: 30px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container">
+    <div class="form-container">
+        <h3>Update Tags</h3>
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group my-3">
+                {{ form.name.label }}
+                {{ form.name(class_='form-control', value=form_name) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
     </div>
-    <button type="submit" class="btn btn-primary">Update</button>
-</form>
+</div>
 
 {% endblock %}
