@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
 <style>
+
     /* ฟอร์มที่มีขอบมนและเงา */
     .shadow-box {
         /* พื้นหลังขาว */
@@ -10,9 +11,9 @@
         /* เงา */
         padding: 20px;
         border: 1px solid #e0e0e0;
+        background-color: white;
         /* ขอบที่บาง */
     }
-
 </style>
 
 <div class="container mt-4">
@@ -23,12 +24,14 @@
 
             <div class="form-group my-4">
                 <label for="title" class="font-weight-bold">{{ form.title.label }}</label>
-                {{ form.title(class_='form-control', rows=1, id='title', placeholder='Enter title here...', value=form_title) }}
+                {{ form.title(class_='form-control', rows=1, id='title', placeholder='Enter title here...',
+                value=form_title) }}
             </div>
 
             <div class="form-group my-4">
                 <label for="text_description" class="font-weight-bold">{{ form.description.label }}</label>
-                {{ form.description(class_='form-control', rows=6, id='text_description', placeholder='Enter the description here...') }}
+                {{ form.description(class_='form-control', rows=6, id='text_description', placeholder='Enter the
+                description here...') }}
             </div>
 
             <div class="text-center">

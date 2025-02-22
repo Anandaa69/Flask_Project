@@ -23,7 +23,7 @@
 
         /* ใช้ฟอนต์ที่กำหนด */
         body {
-            background-image: url('static/images/bg.png');
+            background-image: url("{{ url_for('static', filename='images/bg.png') }}");
             font-family: 'MyCustomFont', sans-serif;
             background-size: cover; /* ให้ภาพเต็มหน้าจอ */
             background-position: center; /* ให้ภาพอยู่กลาง */
