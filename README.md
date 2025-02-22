@@ -25,9 +25,13 @@ Create Website with Flask
 2. Create and activate Virtual Environment
    ```bash
    python3 -m venv venv
-   ----- if you use Window -----
+   ```
+   - if you use Window
+   ```bash
    venv\Scripts\activate
-   ----- if you use Linux -----
+   ```
+   - if you use Linux
+   ```bash
    source ./venv/bin/activate
    ```
 
