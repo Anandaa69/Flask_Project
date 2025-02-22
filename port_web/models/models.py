@@ -30,41 +30,6 @@ def init_app(app):
         db.reflect()
 
 
-# Database
-note_tag_m2m = db.Table(
-    "note_tag_port",
-    sa.Column("note_id", sa.ForeignKey("notes.id"), primary_key=True),
-    sa.Column("tag_id", sa.ForeignKey("tags.id"), primary_key=True),
-    sa.Column("portfolio_id", sa.Integer),
-)
-
-
-class Tag(db.Model):
-    __tablename__ = "tags"
-
-    id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(sa.String, nullable=False)
-    created_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
-
-
-class Note(db.Model):
-    __tablename__ = "notes"
-
-    id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
-
-    title: Mapped[str] = mapped_column(sa.String, nullable=False)
-    description: Mapped[str] = mapped_column(sa.Text)
-
-    tags: Mapped[list[Tag]] = relationship(secondary=note_tag_m2m)
-
-    create_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
-    update_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
-
-    # Adding portfolio_id without linking it to any other table
-    portfolio_id: Mapped[int] = mapped_column(sa.Integer, nullable=True)
-
-
-# acl database m2m
 user_roles = db.Table(
     "user_roles",
     db.Model.metadata,
@@ -79,7 +44,6 @@ class Role(db.Model):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
     name: Mapped[str] = mapped_column(sa.String, nullable=False, default="user")
     created_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
-
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"
@@ -109,3 +73,30 @@ class User(db.Model, UserMixin):
 
     def has_role(self, role_name):
         return any(role.name == role_name for role in self.roles)
+
+# Database note_user_m2m
+note_user_m2m = db.Table(
+    "note_user",
+    sa.Column("note_id", sa.ForeignKey("notes.id"), primary_key=True),
+    sa.Column("user_id", sa.ForeignKey("users.id"), primary_key=True),
+    # sa.Column("tag_id", sa.ForeignKey("tags.id"), primary_key=True),
+)
+
+class Note(db.Model):
+    __tablename__ = "notes"
+
+    id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
+
+    title: Mapped[str] = mapped_column(sa.String, nullable=False)
+    description: Mapped[str] = mapped_column(sa.Text)
+
+    users: Mapped[list[User]] = relationship(secondary=note_user_m2m)
+
+    create_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
+    update_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
+
+    # Adding portfolio_id without linking it to any other table
+    portfolio_id: Mapped[int] = mapped_column(sa.Integer, nullable=True)
+
+
+
