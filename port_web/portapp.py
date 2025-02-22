@@ -129,6 +129,7 @@ def tags_view(tag_views):
 
 @app.route("/tags/<tag_id>/update_tags", methods=["GET", "POST"])
 def update_tags(tag_id): #แก้ไข Tags ได้
+    port_id = flask.request.args.get('port_id')
     db = models.db
     tag = (
         db.session.execute(db.select(models.Tag).where(models.Tag.id == tag_id))
@@ -152,10 +153,11 @@ def update_tags(tag_id): #แก้ไข Tags ได้
     tag.name = form.name.data
     db.session.commit()
 
-    return flask.redirect(flask.url_for("index"))
+    return flask.redirect(flask.url_for(f"port_{port_id}"))
 
 @app.route("/tags/<tag_id>/delete_tags", methods=["GET", "POST"])
 def delete_tags(tag_id):
+    port_id = flask.request.args.get('port_id')
     db = models.db
     tag = (
         db.session.execute(db.select(models.Tag).where(models.Tag.id == tag_id))
@@ -166,7 +168,7 @@ def delete_tags(tag_id):
     tag.name = ""
     db.session.commit()
 
-    return flask.redirect(flask.url_for("index"))
+    return flask.redirect(flask.url_for(f"port_{port_id}"))
 
 @app.route("/notes/create_note", methods=["GET", "POST"])
 def create_note():
@@ -192,6 +194,8 @@ def create_note():
     # Set the user_id from the current logged-in user
     if current_user.is_authenticated:
         note.user_id = current_user.id
+        note.author = current_user.name
+
     else:
         # Handle case when the user is not authenticated (e.g., redirect or error)
         return flask.redirect(flask.url_for('login'))  # Assuming you have a login route
@@ -218,6 +222,7 @@ def create_note():
 
 @app.route("/tags/<tag_id>/update_note", methods=["GET", "POST"])
 def update_note(tag_id):
+    port_id = flask.request.args.get('port_id')
     db = models.db
     notes = (
         db.session.execute(
@@ -244,23 +249,29 @@ def update_note(tag_id):
     notes.title = form.title.data
     db.session.commit()
 
-    return flask.redirect(flask.url_for("index"))
+    return flask.redirect(flask.url_for(f"port_{port_id}"))
 
 @app.route("/tags/<tag_id>/delete_note", methods=["GET", "POST"])
 def delete_note(tag_id):
+    port_id = flask.request.args.get('port_id')
     db = models.db
+    
+    # ค้นหา Note ที่เกี่ยวข้องกับ tag_id
     notes = (
         db.session.execute(
             db.select(models.Note).where(models.Note.tags.any(id=tag_id))
         )
         .scalars()
-        .first()
+        .all()  # ใช้ all() เพื่อดึงข้อมูลหลายตัว
     )
 
-    notes.description = ""
+    # ลบ Note ที่เกี่ยวข้องทั้งหมด
+    for note in notes:
+        db.session.delete(note)  # ลบ Note
+
     db.session.commit()
 
-    return flask.redirect(flask.url_for("index"))
+    return flask.redirect(flask.url_for(f"port_{port_id}"))
 
 @app.route("/tags/<tag_id>/delete", methods=["GET", "POST"])
 def delete(tag_id):

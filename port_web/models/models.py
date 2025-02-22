@@ -105,5 +105,4 @@ class Note(db.Model):
     # Adding portfolio_id without linking it to any other table
     portfolio_id: Mapped[int] = mapped_column(sa.Integer, nullable=True)
     user_id: Mapped[int] = mapped_column(sa.Integer, sa.ForeignKey('users.id'), nullable=False)
-
-    user: Mapped["User"] = relationship("User", backref="notes")
+    author: Mapped[str] = mapped_column(sa.String, nullable=True)

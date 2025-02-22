@@ -504,18 +504,18 @@
                 {% for t in note.tags %}
                 {% if current_user.is_authenticated and current_user.has_role("admin") %}
                 <div>
-                    <a href="{{ url_for('update_note', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit</a>
-                    <a href="{{ url_for('update_tags', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
-                    <a href="{{ url_for('delete_note', tag_id=t.id) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
-                    <a href="{{ url_for('delete_tags', tag_id=t.id) }}" class="btn btn-danger btn-sm">Delete Tags</a>
+                    <a href="{{ url_for('update_note', tag_id=t.id, port_id = 4) }}" class="btn btn-warning btn-sm me-2">Edit</a>
+                    <a href="{{ url_for('update_tags', tag_id=t.id, port_id = 4) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
+                    <a href="{{ url_for('delete_note', tag_id=t.id, port_id = 4) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
+                    <a href="{{ url_for('delete_tags', tag_id=t.id, port_id = 4) }}" class="btn btn-danger btn-sm">Delete Tags</a>
                 </div>
                 {% endif %}
                 {% if current_user.is_authenticated and note.user_id == current_user.id %}
                 <div>
-                    <a href="{{ url_for('update_note', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit</a>
-                    <a href="{{ url_for('update_tags', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
-                    <a href="{{ url_for('delete_note', tag_id=t.id) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
-                    <a href="{{ url_for('delete_tags', tag_id=t.id) }}" class="btn btn-danger btn-sm">Delete Tags</a>
+                    <a href="{{ url_for('update_note', tag_id=t.id, port_id = 4) }}" class="btn btn-warning btn-sm me-2">Edit</a>
+                    <a href="{{ url_for('update_tags', tag_id=t.id, port_id = 4) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
+                    <a href="{{ url_for('delete_note', tag_id=t.id, port_id = 4) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
+                    <a href="{{ url_for('delete_tags', tag_id=t.id, port_id = 4) }}" class="btn btn-danger btn-sm">Delete Tags</a>
                 </div>
                 {% endif %}
                 {% endfor %}
@@ -525,7 +525,7 @@
             </div>
             <div class="mt-3">
                 <strong>Posted by: </strong>
-                <span class="text-primary">{{ note.user.name }}</span>
+                <span class="text-primary">{{ note.author }}</span>
             </div>
         </div>
     </div>
