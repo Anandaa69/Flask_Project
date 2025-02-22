@@ -44,7 +44,7 @@ Here’s a quick overview of the core components of the project:
 
 Main Features:
 - **User Authentication**: Users can register, log in, and log out.
-- **Role Management**: Users can be assigned roles (like "user" "admin"), and access can be controlled based on these roles.
+- **Role Management**: Users can be assigned roles (like "user", "admin"), and access can be controlled based on these roles.
 - **Notes & Tags**: Users can create, update, and delete notes, and tags can be assigned to each note.
 - **Portfolio Pages**: Different portfolio pages (port_1, port_2, etc.) display notes based on their associated portfolio IDs.
 
