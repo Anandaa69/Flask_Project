@@ -495,7 +495,7 @@
             <div>
                 Tags:
                 {% for t in note.tags %}
-                <a class="badge bg-primary text-light me-2" href="{{ url_for('tags_view', tag_name=t.name) }}">
+                <a class="badge bg-primary text-light me-2" href="{{ url_for('tags_view', tag_views=t.name) }}">
                     {{ t.name }}
                 </a>
                 {% endfor %}

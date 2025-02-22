@@ -102,14 +102,18 @@ def register():
 
 #TAGS AND NOTES
 
-@app.route("/tags/<tag_name>")
-def tags_view(tag_name):
+@app.route("/tags/<tag_views>")
+def tags_view(tag_views):
     db = models.db
     tag = (
-        db.session.execute(db.select(models.Tag).where(models.Tag.name == tag_name))
+        db.session.execute(db.select(models.Tag).where(models.Tag.name == tag_views))
         .scalars()
         .first()
     )
+
+    if not tag:
+        # Handle case when tag doesn't exist
+        return flask.render_template("tags_view.html", tag_views=tag_views, notes=[])
 
     notes = db.session.execute(
         db.select(models.Note).where(models.Note.tags.any(id=tag.id))
@@ -117,9 +121,11 @@ def tags_view(tag_name):
 
     return flask.render_template(
         "tags_view.html",
-        tag_name=tag_name,
+        tag_views=tag_views,
         notes=notes,
+        tag=tag  # Make sure to pass the tag object to the template
     )
+
 
 @app.route("/tags/<tag_id>/update_tags", methods=["GET", "POST"])
 def update_tags(tag_id): #แก้ไข Tags ได้
