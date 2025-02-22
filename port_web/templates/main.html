@@ -125,6 +125,7 @@
         <a class="btn btn-outline-light" href="{{ url_for('ports') }}" style="background-color: #005bd3; width: 150px;">
             Let's Start
         </a>
+        {% if not current_user.is_authenticated %}
         <div class="d-flex flex-column gap-2">
             <a href="{{ url_for('register') }}" class="btn btn-outline-light"
                 style="background-color: #005bd3; width: 150px;">
@@ -135,6 +136,14 @@
                 Login
             </a>
         </div>
+        {% else %}
+        <div class="d-flex flex-column gap-2">
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-light"
+                style="background-color: #005bd3; width: 150px;">
+                logout
+            </a>
+        </div>
+        {% endif %}
     </div>
 
 </div>

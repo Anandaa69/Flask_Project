@@ -13,12 +13,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
 models.init_app(app)
 
-@app.route("/index")
-def index():
-    db = models.db
-    notes = db.session.execute(db.select(models.Note).order_by(models.Note.title)).scalars()
-    return flask.render_template("index.html", notes=notes,)
-
 @app.route("/about_me")
 def about_me():
     return flask.render_template("about_me.html")
@@ -60,7 +54,7 @@ def login():
 
     # ถ้าผู้ใช้ล็อกอินแล้ว, เปลี่ยนเส้นทางไปหน้า index
     if current_user.is_authenticated:
-        return flask.redirect(flask.url_for('index'))
+        return flask.redirect(flask.url_for('main'))
     
     form = forms.LoginForm()
     if not form.validate_on_submit():
