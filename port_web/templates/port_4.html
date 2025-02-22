@@ -469,7 +469,8 @@
         {% if not current_user.is_authenticated %}
         <h2 class="text-center text-primary" style="font-size: 50px;">Login to comment</h2>
         <div class="d-flex justify-content-center mt-3">
-            <a class="btn btn-primary btn-sm" href="{{ url_for('login', port_id = 4) }}" style="font-size: 25px; width: 100px;">
+            <a class="btn btn-primary btn-sm" href="{{ url_for('login', port_id = 4) }}"
+                style="font-size: 25px; width: 100px;">
                 Login
             </a>
         </div>
@@ -484,37 +485,52 @@
 </ul>
 
 {% for note in notes %}
-{% if note.portfolio_id == 4 %}
-<div class="card my-3 shadow-sm" style="border-radius: 8px; max-width: 700px; margin: auto;">
-    <div class="card-body">
-        <h5 class="card-title text-info">{{ note.title }}</h5>
-        <p class="card-text my-2" style="font-size: 0.9em;">
-            {{ note.description }}
-        </p>
-        <div class="card-footer text-muted d-flex justify-content-between">
-            <div>
-                Tags:
+    {% if note.portfolio_id == 4 %}
+    <div class="card my-3 shadow-sm" style="border-radius: 8px; max-width: 700px; margin: auto;">
+        <div class="card-body">
+            <h5 class="card-title text-info">{{ note.title }}</h5>
+            <p class="card-text my-2" style="font-size: 0.9em;">
+                {{ note.description }}
+            </p>
+            <div class="card-footer text-muted d-flex justify-content-between">
+                <div>
+                    Tags:
+                    {% for t in note.tags %}
+                    <a class="badge bg-primary text-light me-2" href="{{ url_for('tags_view', tag_views=t.name) }}">
+                        {{ t.name }}
+                    </a>
+                    {% endfor %}
+                </div>
                 {% for t in note.tags %}
-                <a class="badge bg-primary text-light me-2" href="{{ url_for('tags_view', tag_views=t.name) }}">
-                    {{ t.name }}
-                </a>
+                {% if current_user.is_authenticated and current_user.has_role("admin") %}
+                <div>
+                    <a href="{{ url_for('update_note', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit</a>
+                    <a href="{{ url_for('update_tags', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
+                    <a href="{{ url_for('delete_note', tag_id=t.id) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
+                    <a href="{{ url_for('delete_tags', tag_id=t.id) }}" class="btn btn-danger btn-sm">Delete Tags</a>
+                </div>
+                {% endif %}
+                {% if current_user.is_authenticated and note.user_id == current_user.id %}
+                <div>
+                    <a href="{{ url_for('update_note', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit</a>
+                    <a href="{{ url_for('update_tags', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
+                    <a href="{{ url_for('delete_note', tag_id=t.id) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
+                    <a href="{{ url_for('delete_tags', tag_id=t.id) }}" class="btn btn-danger btn-sm">Delete Tags</a>
+                </div>
+                {% endif %}
                 {% endfor %}
             </div>
-            {% if current_user.is_authenticated and current_user.has_role("admin") %}
-            <div>
-                <a href="{{ url_for('update_note', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit</a>
-                <a href="{{ url_for('update_tags', tag_id=t.id) }}" class="btn btn-warning btn-sm me-2">Edit Tags</a>
-                <a href="{{ url_for('delete_note', tag_id=t.id) }}" class="btn btn-danger btn-sm me-2">Delete Note</a>
-                <a href="{{ url_for('delete_tags', tag_id=t.id) }}" class="btn btn-danger btn-sm">Delete Tags</a>
+            <div class="mt-2 text-muted text-end" style="font-size: 0.8em;">
+                Last Updated: {{ note.update_date }}
             </div>
-            {% endif %}
-        </div>
-        <div class="mt-2 text-muted text-end" style="font-size: 0.8em;">
-            Last Updated: {{ note.update_date }}
+            <div class="mt-3">
+                <strong>Posted by: </strong>
+                <span class="text-primary">{{ note.user.name }}</span>
+            </div>
         </div>
     </div>
-</div>
-{% endif %}
+    {% endif %}
 {% endfor %}
+
 
 {% endblock %}

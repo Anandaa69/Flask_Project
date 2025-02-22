@@ -106,3 +106,4 @@ class Note(db.Model):
     portfolio_id: Mapped[int] = mapped_column(sa.Integer, nullable=True)
     user_id: Mapped[int] = mapped_column(sa.Integer, sa.ForeignKey('users.id'), nullable=False)
 
+    user: Mapped["User"] = relationship("User", backref="notes")
