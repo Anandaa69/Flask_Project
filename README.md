@@ -1,21 +1,5 @@
-# Flask_Project
-Create Website with Flask
-
-# Page
-- main
-- login
-- register
-- About me
-- Portfolio
-- Port_1
-- Port_2
-- Port_3
-- add comment
-- admin comment manager
-
-
 # Flask Web Application
-
+Create Website with Flask
 ## How to Run
 1. Clone this repository:
    ```bash
@@ -34,13 +18,15 @@ Create Website with Flask
    ```bash
    source ./venv/bin/activate
    ```
-
-4. Install required libraries:
+4. Install Poetry:
    ```bash
    pip install poetry
+   ```
+5. Install dependencies with Poetry
+   ```bash
    poetry install
    ```
-3. Run Web:
+6. Run Web:
    ```bash
-   python /port_web/portapp.py
+   poetry run python port_web/portapp.py
    ```
