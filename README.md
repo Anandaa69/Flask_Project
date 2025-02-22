@@ -12,3 +12,31 @@ Create Website with Flask
 - Port_3
 - add comment
 - admin comment manager
+
+
+# Flask Web Application
+
+## How to Run
+1. Clone this repository:
+   ```bash
+  git clone https://github.com/Anandaa69/Flask_Project.git
+  cd Flask_Project
+   ```
+2. Create and activate Virtual Environment
+   ```bash
+  python3 -m venv venv
+   ----- if you use Window -----
+  venv\Scripts\activate
+   ----- if you use Linux -----
+  source ./venv/bin/activate
+   ```
+
+4. Install required libraries:
+   ```bash
+   pip install poetry
+   poetry install
+   ```
+3. Run Web:
+   ```bash
+   python /port_web/portapp.py
+   ```
