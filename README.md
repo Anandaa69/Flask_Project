@@ -1,5 +1,13 @@
 # Flask Web Application
-This project is a Flask-based web application that uses SQLAlchemy for database management, Flask-Login for user authentication, and various custom forms for handling user input. The application allows users to manage notes, tags, and portfolios while ensuring secure user login and registration functionality.
+This project is a **Flask-based portfolio website** designed to showcase personal projects and allow user interaction through a secure login system. The application enables users to register, log in, and leave comments on various portfolio items, fostering engagement and feedback.
+
+To ensure a seamless and secure experience, the project integrates **Flask-Login** for authentication, **SQLAlchemy** for efficient database management, and **WTForms** for handling user input. The website provides an intuitive interface where users can explore different portfolio pieces and share their thoughts through a structured commenting system.
+
+With a focus on usability and security, this application also implements **role-based access control** to differentiate user permissions, ensuring that administrative tasks such as comment moderation and content management are restricted to authorized users.
+
+In addition to authentication and user interaction, the project includes a tagging system that allows notes and comments to be categorized effectively. The database schema is designed to support scalability, enabling future expansion with additional features such as image uploads, search filters, and customizable portfolio layouts.
+
+This project serves as a **personalized, interactive portfolio platform** that not only highlights creative works but also encourages meaningful user engagement in a structured and secure environment.
 ## How to Run
 **Step 1: Clone this repository:**
    ```bash
