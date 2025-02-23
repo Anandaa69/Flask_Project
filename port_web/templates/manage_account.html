@@ -140,6 +140,7 @@
 
     <h4>Your Notes</h4>
     {% for note in notes %}
+    {% if current_user.is_authenticated and note.user_id == current_user.id %}
     <div class="card note-card">
         <div class="card-body">
             <h5 class="card-title">{{ note.title }}</h5>
@@ -171,6 +172,7 @@
             Last updated: {{ note.update_date }}
         </div>
     </div>
+    {% endif %}
     {% endfor %}
 
     <!-- Sign Out Button (centered) -->
