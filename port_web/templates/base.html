@@ -16,7 +16,7 @@
     <style>
         @font-face {
             font-family: 'MyCustomFont';
-            src: url('{{ url_for('static', filename='fonts/RSU_BOLD.ttf') }}') format('truetype');
+            src: url('/static/fonts/RSU_BOLD.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
@@ -25,11 +25,16 @@
         body {
             background-image: url("{{ url_for('static', filename='images/bg.png') }}");
             font-family: 'MyCustomFont', sans-serif;
-            background-size: cover; /* ให้ภาพเต็มหน้าจอ */
-            background-position: center; /* ให้ภาพอยู่กลาง */
-            background-repeat: no-repeat; /* ห้ามซ้ำภาพ */
-            background-attachment: fixed; /* ให้ภาพติดกับหน้าจอและไม่เลื่อนตามการเลื่อนหน้า */
-            min-height: 100vh; /* ให้ความสูงขั้นต่ำของหน้าเป็น 100% ของความสูงหน้าจอ */
+            background-size: cover;
+            /* ให้ภาพเต็มหน้าจอ */
+            background-position: center;
+            /* ให้ภาพอยู่กลาง */
+            background-repeat: no-repeat;
+            /* ห้ามซ้ำภาพ */
+            background-attachment: fixed;
+            /* ให้ภาพติดกับหน้าจอและไม่เลื่อนตามการเลื่อนหน้า */
+            min-height: 100vh;
+            /* ให้ความสูงขั้นต่ำของหน้าเป็น 100% ของความสูงหน้าจอ */
         }
 
 
@@ -42,7 +47,6 @@
             color: #eeeeee;
             /* ใส่สีแดงให้กับลิงก์ในเมนู navbar */
         }
-
     </style>
 </head>
 
@@ -78,9 +82,10 @@
                 <div class="d-flex ms-auto">
                     <span class="navbar-text">
                         {% if current_user.is_authenticated %}
-                        <div class="d-flex flex-column align-items-start w-100">
-                            <span style="color: #eeeeee">{{ current_user.username }}</span>
-                            <a class="nav-link mt-auto align-self-center" href="{{ url_for('manage_account') }}" style="color: #999999">account</a>
+                        <div class="d-flex flex-column align-items-center w-100">
+                            <span style="color: #eeeeee; margin-bottom: 10px;" >{{ current_user.username }}</span>
+                            <a class="nav-link mt-auto align-self-center btn" href="{{ url_for('manage_account') }}"
+                                style="color: #2b2b2b; background-color: #eeeeee; width: 75px;">account</a>
                         </div>
                         {% else %}
                         <a class="nav-link" href="{{ url_for('register') }}" style="color: #eeeeee">sign in</a>
@@ -90,7 +95,7 @@
             </div>
         </div>
     </nav>
-    
+
     <div class="flex-grow-1">
         {% block body %}
         Default template
@@ -111,10 +116,10 @@
         </div>
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex" style="padding-right: 10px;">
-            <li class="ms-3"><a href="https://github.com/Anandaa69" style="color: #eeeeee;"><i class="bi bi-github" width="24"
-                        height="24"></i></a></li>
+            <li class="ms-3"><a href="https://github.com/Anandaa69" style="color: #eeeeee;"><i class="bi bi-github"
+                        width="24" height="24"></i></a></li>
         </ul>
     </footer>
 </div>
-</html>
 
+</html>

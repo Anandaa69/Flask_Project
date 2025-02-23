@@ -26,15 +26,15 @@ This project serves as a **personalized, interactive portfolio platform** that n
    ```bash
    source ./venv/bin/activate
    ```
-**Step:4 Install Poetry:**
+**Step 3: Install Poetry:**
    ```bash
    pip install poetry
    ```
-**Step 5: Install dependencies with Poetry**
+**Step 4: Install dependencies with Poetry**
    ```bash
    poetry install
    ```
-**Step 6: Run Web:**
+**Step 5: Run Web:**
    ```bash
    poetry run python port_web/portapp.py
    ```
